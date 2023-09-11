@@ -7,7 +7,7 @@ session_start();
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
   <title>My Website</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" 
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -15,7 +15,6 @@ session_start();
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     
     <link rel="stylesheet" type="text/css" href="css/estilos.css">
-    
 </head>
 
 <body>
@@ -97,41 +96,59 @@ session_start();
     </div>
   </div>
 <!-----Footer From Here !!!----->
-<footer class="footer">
+<footer class="footer mt-5">
   <div class="container">
-  <div class="row">
-    <div class="col-12">
-        <!-- First dropdown with text -->
-        <div class="dropdown">
-          <button class="btn boton dropdown-toggle w-100 text-start mb-2" type="button" id="dropdownText" data-bs-toggle="dropdown" aria-expanded="false">
-            Información Del Local
-          </button>
-          <ul class="dropdown-menu" aria-labelledby="dropdownText">
-            <li><a class="dropdown-item" href="#">Option 1</a></li>
-            <li><a class="dropdown-item" href="#">Option 2</a></li>
-            <!-- Add more options as needed -->
-          </ul>
-        </div>
-    </div>
-    <div class="col-12">
-        <!-- Second dropdown with links -->
-        <div class="dropdown">
-          <button class="btn boton dropdown-toggle w-100 text-start mb-5" type="button" id="dropdownLinks" data-bs-toggle="dropdown" aria-expanded="false">
-            Información
-          </button>
-          <ul class="dropdown-menu" aria-labelledby="dropdownLinks">
-            <li><a class="dropdown-item" href="#">Link 1</a></li>
-            <li><a class="dropdown-item" href="#">Link 2</a></li>
-            <!-- Add more links as needed -->
-          </ul>
-        </div>
-    </div>
+    <div class="row">
+      <div class="col-12">
+          <!-- First dropdown with text -->
+          <div class="dropdown">
+            <button class="btn boton dropdown-toggle w-100 text-start mb-2" type="button" id="dropdownText" data-bs-toggle="dropdown" aria-expanded="false">
+              Información Del Local
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownText">
+              <li><p class="ms-3">
+                    <i class="fas fa-map-marker-alt"></i>
+                      Castelli 234 Local 1, Once C.A.B.A.
+                  </p></li>
+              <li><p class="ms-3">
+                    <i class="fas fa-phone"></i>
+                    11 5653 2820
+                  </p></li>
+              <li><p class="ms-3">
+                    <i class="fas fa-envelope"></i>
+                    janere_645@hotmail.com
+                  </p></li>
+              <!-- Add more options as needed -->
+            </ul>
+          </div>
+      </div>
+      <div class="col-12">
+          <!-- Second dropdown with links -->
+          <div class="dropdown">
+            <button class="btn boton dropdown-toggle w-100 text-start mb-3" type="button" id="dropdownLinks" data-bs-toggle="dropdown" aria-expanded="false">
+              Información
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownLinks">
+              <li><a class="dropdown-item" href="#">Nosotros</a></li>
+              <li><a class="dropdown-item" href="#">Listas y Catalogos</a></li>
+              <!-- Add more links as needed -->
+            </ul>
+          </div>
+      </div>
 
-    <div class="col-12">
-      <a href="https://facebook.com" class="facebook"><i class="bi bi-facebook"></i></a>
-      <a class="whatsapp" id='WSP'  href="" Target="_blank"><i class="bi bi-whatsapp"></i></a>
+      <div class="col-12 mt-2 mb-3 text-center">
+        <a class="faceook me-4" href="https://facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
+        <a class="whatsapp" href="https://wa.me/5491150511072" target="_blank"><i class="fab fa-whatsapp"></i></a>
+      </div>
+
+      <div class="footer-text">
+        <p>Tienda Emakick's Lingerie 2023 @ Todos los derechos reservados</p>
+        <p>Diseñado por Adusoft
+        <span style="color:#FFD200; font-weight: strong;">❤</span>
+        </p>
+      </div>
     </div>
-  </div>
+    
   </div>
 </footer>
 
@@ -163,6 +180,11 @@ session_start();
           }
       });
     }
+    
+    $(".dropdown").on("click", function() {
+      $(this).toggleClass("open");
+    });
+
     // Handle the click event for the links inside the navbar and dropdown menu
     $('.navbar-nav .nav-link').on('click', function(e) {
       e.preventDefault();
@@ -179,6 +201,8 @@ session_start();
         openTableModal(opcion);
       }
     });
+
+    
   });  
   </script>
 
