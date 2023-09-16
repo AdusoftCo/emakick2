@@ -110,13 +110,13 @@ body {
 }
 /* Custom styles for the footer dropdowns */
 /* Add this CSS to adjust spacing */
-.footer .container {
+.footer-dropdown .container {
     text-align: left;
     /* Align the text to the left */
     margin-bottom: 20px;
     /* Add margin to create space below the second dropdown */
 }
-.dropdown button {
+.footer-dropdown .dropdown button {
     width: 100%;
     /* Make the buttons full width of the container */
     text-align: left;
@@ -125,13 +125,13 @@ body {
     /* Add space for the dropdown arrow */
 }
 
-.dropdown button::after {
+.footer-dropdown button::after {
     content: "";
     display: inline-block;
     position: absolute;
-    right: 10px;
+    right: 10px !important;
     /* Adjust the right position as needed */
-    top: 25%;
+    top: 25% !important;
     transform: translateY(-50%);
 }
 
@@ -163,14 +163,14 @@ body {
 .whatsapp{
     color: forestgreen;
 }
-.footer {
+.footer-dropdown {
     transition: transform 0.3s ease;
 }
 
-.footer.open {
+.footer-dropdown .open {
     transform: translateY(100%);
 }
-.footer .dropdown.open .dropdown-menu {
+.footer-dropdown .dropdown.open .dropdown-menu {
     transform: translateY(0%);
 }
 
@@ -181,7 +181,7 @@ body {
         background-color: #f8f9fa;
             /* Background color for the entire page */
     }
-    .footer .dropdown-menu {
+    .footer-dropdown .dropdown-menu {
         width: 100vw;
         }
     .form-control {

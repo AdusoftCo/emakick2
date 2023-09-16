@@ -6,7 +6,7 @@ if (isset($_GET['opcion'])) {
     $conexion = new conexion();
 
     $sql = "SELECT $opcion.`cod_art`, $opcion.`id_prov`, $opcion.`descripcion`, $opcion.`precio_doc`, 
-         `fabricants`.`nombre` FROM $opcion INNER JOIN `fabricants` ON $opcion.`id_prov`=`fabricants`.`id`";
+        $opcion.`fecha_alta`, `fabricants`.`nombre` FROM $opcion INNER JOIN `fabricants` ON $opcion.`id_prov`=`fabricants`.`id`";
 
     // Ejecuta la consulta
     $resultado = $conexion->consultar($sql);
@@ -18,7 +18,7 @@ if (isset($_GET['opcion'])) {
             echo '<div class="col">';
             echo    '<div class="card border border-3 shadow">';
             echo        '<div class="card-body">';
-                        echo '<p class="card-text" style="color: var(--bs-primary);">' . 'Articulo :  ' . $fila['cod_art'] . '</p>';
+                        echo '<p class="card-text" style="color: var(--bs-primary);">' . 'Articulo :  ' . $fila['cod_art'] . '  - Actualizado ->'. '  '. $fila['fecha_alta'] . '</p>';
                         echo '<p class="card-text" style="color: var(--bs-primary);">' . 'Fabricante : ' . $fila['nombre'] . '</p>'; // Adjust based on your database columns
                         echo '<p class="card-text" style="color: var(--bs-primary);">' . $fila['descripcion'] . '</p>';
                         echo '<p class="card-text" style="color: var(--bs-primary);">' . 'Precio Docena :  $ '. $fila['precio_doc'] . '</p>';

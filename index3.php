@@ -1,6 +1,9 @@
 <?php
 session_start();
 ?>
+<?php error_reporting(E_ALL ^ E_NOTICE); ?>
+<?php include 'conexion.php'; ?>
+<?php include 'navbar.php'; ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -18,10 +21,7 @@ session_start();
 </head>
 
 <body>
-  <?php error_reporting(E_ALL ^ E_NOTICE); ?>
-  <?php include 'conexion.php'; ?>
-  <?php include 'navbar.php'; ?>
-
+  
   <div class="container-fluid p-0">
     <div class="row justify-content-center">
       <div class="col-12 mt-0">
@@ -96,7 +96,7 @@ session_start();
     </div>
   </div>
 <!-----Footer From Here !!!----->
-<footer class="footer mt-5">
+<footer class="footer-dropdown mt-5">
   <div class="container">
     <div class="row">
       <div class="col-12">
@@ -137,8 +137,8 @@ session_start();
       </div>
 
       <div class="col-12 mt-2 mb-3 text-center">
-        <a class="faceook me-4" href="https://facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
-        <a class="whatsapp" href="https://wa.me/5491150511072" target="_blank"><i class="fab fa-whatsapp"></i></a>
+        <a class="faceook me-4" href="https://facebook.com" target="_blank"><i class="fab fa-facebook fa-2x"></i></a>
+        <a class="whatsapp" href="https://wa.me/5491150511072" target="_blank"><i class="fab fa-whatsapp fa-2x"></i></a>
       </div>
 
       <div class="footer-text">

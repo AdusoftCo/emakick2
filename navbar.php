@@ -31,8 +31,15 @@
       padding-top: 0.25rem; /* Adjust as needed */
     }
     
+    /* Remove the border from the navbar-toggler when clicked */
+    .navbar-toggler:focus {
+        outline: none !important;
+        box-shadow: none !important;
+        border: none !important;
+    }
+
     /* Adjust the top margin for dropdowns */
-    .dropdown-menu[data-bs-popper] {
+    .navbar-dropdown .dropdown-menu[data-bs-popper] {
       background-color: #f8f8fe;
       top: 80%; /* Adjust as needed */
     }
@@ -48,12 +55,24 @@
       top: 96px;
       left: 0;
     }
+    .navbar-dropdown button{
+      color: #0000008c;
+    }
+    .navbar-dropdown button::after {
+        content: "";
+        display: inline-block;
+        position: absolute;
+        right: 357px; /* Adjust this value to position the arrow */
+        top: 55%;
+        transform: translateY(-50%);
+    }
+
   </style>
 <body>
 
 <div class="container-fluid p-0">
 
-  <nav class="navbar navbar-expand-lg navbar-light">
+  <nav class="navbar navbar-dropdown navbar-expand-lg navbar-light">
     <button class="navbar-toggler pt-4 pe-1" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
       aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -90,8 +109,27 @@
             <li><a class="dropdown-item nav-link" href="#" data-bs-option="cami_son_setas">Camisones-Pijamas-Camisetas</a></li>
           </ul>
         </li>
-        <li class="nav-item">
-          <a class="nav-link ml-1" href="contact.php">Contacto</a>
+        <li class="nav-item dropdown">
+          <button class="btn dropdown-toggle ps-0" type="button" id="dropdownText" data-bs-toggle="dropdown" aria-expanded="false">
+              Contacto
+          </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownText">
+              <li><p class="ms-3">
+                    <i class="fas fa-map-marker-alt"></i>
+                      Castelli 234 Local 1, Once C.A.B.A.
+                  </p>
+              </li>
+              <li><p class="ms-3">
+                    <i class="fas fa-phone"></i>
+                    11 5653 2820
+                  </p>
+              </li>
+              <li><p class="ms-3">
+                    <i class="fas fa-envelope"></i>
+                    janere_645@hotmail.com
+                  </p>
+              </li>
+            </ul>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle ml-0" href="#" role="button" data-bs-toggle="dropdown"
