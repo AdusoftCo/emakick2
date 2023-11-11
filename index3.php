@@ -44,13 +44,13 @@ session_start();
           </ol>
           <div class="carousel-inner">
             <div class="carousel-item active">
-              <img src="imagenes/apple.jpg" class="d-block w-100 carousel-image" alt="Image 1">
+              <img src="imagenes/Bikini0923-2.png" class="d-block w-100 carousel-image" alt="Image 1">
             </div>
             <div class="carousel-item">
-              <img src="imagenes/coffee.jpg" class="d-block w-100 carousel-image" alt="Image 2">
+              <img src="imagenes/Bikini0923B.png" class="d-block w-100 carousel-image" alt="Image 2">
             </div>
             <div class="carousel-item">
-              <img src="imagenes/apple.jpg" class="d-block w-100 carousel-image" alt="Image 3">
+              <img src="imagenes/Bikini0923-4.png" class="d-block w-100 carousel-image" alt="Image 3">
             </div>
           </div>
           <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-bs-slide="prev">
@@ -65,17 +65,33 @@ session_start();
       </div>
     </div>
 
-    <div class="text-banner d-flex justify-content-center align-items-center mt-4">
-      <img src="imagenes/woman2.jpg" alt="Mujer Image" class="w-75 h-75 object-fit-cover">
-    </div>
+    
+      <div class="col-12 mt-5 mb-4 text-center">
+        <h2>TEMPORADA PRIMAVERA-VERANO 2024</h2>
+      </div>
+      <div class="col-12 text-center">
+        <img src="imagenes/dama1_ps.png" alt="Mujer Image" class="image-size">
+      </div>
+    
 
-    <div class="text-banner d-flex justify-content-center align-items-center mt-4">
-      <img src="imagenes/men.jpg" alt="Hombre Image" class="w-75 h-75 object-fit-cover">
-    </div>
-
-    <div class="text-banner d-flex justify-content-center align-items-center mt-4">
-      <img src="imagenes/kids.jpg" alt="Niños Image" class="w-75 h-75 object-fit-cover">
-    </div>
+    
+      <div class="col-12 mt-4 mb-4 text-center">
+        <h2>HOMBRES</h2>
+      </div>
+      <div class="col-12 text-center">
+        <img src="imagenes/hombre_ps.png" alt="Hombre Image" class="image-size"> 
+      </div>
+    
+    
+   
+      <div class="col-12 mt-4 mb-4 text-center">
+        <h2>CHICOS</h2>
+      </div>
+      <div class="col-12 text-center">
+        <img src="imagenes/chica_ps.png" alt="Niños Image" class="image-size">
+      </div>
+   
+    
   </div>
   
   <!-- Modal to display the table content -->
@@ -100,32 +116,35 @@ session_start();
   <div class="container">
     <div class="row">
       <div class="col-12">
-          <!-- First dropdown with text -->
-          <div class="dropdown">
-            <button class="btn boton dropdown-toggle w-100 text-start mb-2" type="button" id="dropdownText" data-bs-toggle="dropdown" aria-expanded="false">
-              Información Del Local
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownText">
-              <li><p class="ms-3">
-                    <i class="fas fa-map-marker-alt"></i>
-                      Castelli 234 Local 1, Once C.A.B.A.
-                  </p></li>
-              <li><p class="ms-3">
-                    <i class="fas fa-phone"></i>
-                    11 5653 2820
-                  </p></li>
-              <li><p class="ms-3">
-                    <i class="fas fa-envelope"></i>
-                    janere_645@hotmail.com
-                  </p></li>
-              <!-- Add more options as needed -->
-            </ul>
-          </div>
+        <!-- First dropdown with text -->
+        <div class="dropdown">
+          <button class="btn boton dropdown-toggle w-100 text-start mb-2" type="button" 
+          id="dropdownText" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="false">
+            Información Del Local
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownText">
+            <li><p class="ms-3">
+                  <i class="fas fa-map-marker-alt"></i>
+                    Castelli 234 Local 1, Once C.A.B.A.
+                </p></li>
+            <li><p class="ms-3">
+                  <i class="fas fa-phone"></i>
+                  11 5653 2820
+                </p></li>
+            <li><p class="ms-3">
+                  <i class="fas fa-envelope"></i>
+                  janere_645@hotmail.com
+                </p></li>
+            <!-- Add more options as needed -->
+          </ul>
+        </div>
       </div>
+      
       <div class="col-12">
           <!-- Second dropdown with links -->
           <div class="dropdown">
-            <button class="btn boton dropdown-toggle w-100 text-start mb-3" type="button" id="dropdownLinks" data-bs-toggle="dropdown" aria-expanded="false">
+            <button class="btn boton dropdown-toggle w-100 text-start mb-3" type="button" 
+            id="dropdownLinks" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="false">
               Información
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownLinks">
@@ -201,8 +220,6 @@ session_start();
         openTableModal(opcion);
       }
     });
-
-    
   });  
   </script>
 

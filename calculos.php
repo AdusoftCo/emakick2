@@ -33,13 +33,13 @@ function calculos ($id_prov, $costo) {
                     $oferta = $f + $d;
                     return array($docena, $oferta);
                 } else {
-                    $a = (22 * $costo) / 100;
-                    $docena = $costo + $a;
-                    $f = $costo / 12;
-                    $g = (55 * $f) / 100;
-                    $oferta = $f + $g;
-                    return array($docena, $oferta);
-                    }
+                            $a = (22 * $costo) / 100;
+                            $docena = $costo + $a;
+                            $f = $costo / 12;
+                            $g = (55 * $f) / 100;
+                            $oferta = $f + $g;
+                            return array($docena, $oferta);
+                        }
                     
-}
+};
 ?>

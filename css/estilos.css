@@ -108,6 +108,62 @@ body {
 .option:hover {
     color: aliceblue;
 }
+
+.dropdown-container {
+    margin-top: 20px;
+    /* Adjust the value as needed */
+}
+
+h2 {
+    margin-top: 50px;
+    /* Adjust the value as needed */
+    text-align: center;
+}
+
+.dropdown-menu.wider {
+    width: 400px;
+    max-width: 110%;
+    /* Adjust the value as needed */
+
+}
+
+.boton {
+    background-color: #5728b7;
+    color: white;
+    border-radius: 5px;
+}
+
+.cambia {
+    color: aliceblue;
+}
+
+.back-link:last-child {
+    position: fixed;
+    top: 10px;
+    left: 20px;
+    /* Adjust the left position as needed */
+    color: #333;
+    text-decoration: none;
+}
+
+/* Style for the search box */
+#search-box {
+    position: fixed;
+    top: 3px;
+    left: 180px;
+    /* Adjust the left position as needed */
+    display: none;
+}
+
+.search-icon {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #5728b7;
+    cursor: pointer;
+}
+
 /* Custom styles for the footer dropdowns */
 /* Add this CSS to adjust spacing */
 .footer-dropdown .container {
@@ -123,16 +179,6 @@ body {
     /* Align the text to the left */
     padding-right: 30px;
     /* Add space for the dropdown arrow */
-}
-
-.footer-dropdown button::after {
-    content: "";
-    display: inline-block;
-    position: absolute;
-    right: 10px !important;
-    /* Adjust the right position as needed */
-    top: 25% !important;
-    transform: translateY(-50%);
 }
 
 .boton:focus {
@@ -163,16 +209,6 @@ body {
 .whatsapp{
     color: forestgreen;
 }
-.footer-dropdown {
-    transition: transform 0.3s ease;
-}
-
-.footer-dropdown .open {
-    transform: translateY(100%);
-}
-.footer-dropdown .dropdown.open .dropdown-menu {
-    transform: translateY(0%);
-}
 
 
 /* Media query for screen widths up to 768px (for mobile devices) */
@@ -181,9 +217,65 @@ body {
         background-color: #f8f9fa;
             /* Background color for the entire page */
     }
+    .image-size{
+        width: 80%;
+        height: 55%;
+    }
+
+    .fixed-section {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 150;
+        /* Adjust the z-index as needed */
+        background-color: #fff;
+    }
+
+    /* Adjust padding or margins for spacing as needed */
+    .fixed-section .d-flex {
+        padding: 10px;
+    }
+
+    .dropdown-container {
+        margin-top: 10px;
+        /* Adjust the value as needed */
+    }
+
+    .tabla__galeria {
+        display: none !important;
+    }
+
+    .card__mobile {
+        display: block !important;
+    }
+
+    .back-link {
+        position: fixed;
+        top: 18px;
+        left: 20px;
+        color: #333;
+        /* Set your desired color */
+        text-decoration: none;
+    }
+
+    /* Style for the search icon */
+    .back-link:last-child {
+        top: 16px;
+        left: auto;
+        right: 35px;
+    }
     .footer-dropdown .dropdown-menu {
         width: 100vw;
         }
+    .footer-dropdown button::after {
+        content: "";
+        display: inline-block;
+        position: absolute;
+        right: 15px !important;
+        top: 45% !important;
+        transform: translateY(-50%);
+    }
     .form-control {
         width: 100%;
         margin-bottom: 10px;
@@ -201,13 +293,7 @@ body {
         align-items: center;
         height: 100%;
     }
-    .back-link {
-        position: fixed;
-        top: 20px;
-        left: 20px;
-        color: #333;
-        text-decoration: none;
-    }
+    
     .ml-auto.mobile-icon {
         margin-left: auto !important;
         order: 2;

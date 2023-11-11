@@ -6,11 +6,10 @@ $conexion = new conexion();
 
 if ($_GET && isset($_GET['modificar'])) {
     $id = $_GET['modificar'];
-    $_SESSION['id_proyecto'] = $id;
-    $opcion = $_GET['option'];
     
-    $_GET['option'] = $_SESSION['option'];
-    //echo "Session Option: " . $_SESSION['option'] . "<br>";
+    $_SESSION['id_proyecto'] = $id;
+     
+    $opcion = $_GET['option'];
 
     $proyecto = $conexion->consultar("SELECT * FROM $opcion WHERE id=" . $id);
     }
@@ -37,8 +36,6 @@ if ($_GET && isset($_GET['modificar'])) {
 
         $descripcion = $_POST['descripcion'];
         $costo = $_POST['costo'];
-        #$docena = $_POST['precio_doc'];
-        #$oferta = $_POST['precio_oferta'];
         $fecha_alta = $_POST['fecha_alta'];
         
         #nombre de la imagen
@@ -51,7 +48,6 @@ if ($_GET && isset($_GET['modificar'])) {
         #move_uploaded_file($imagen_temporal,"imagenes/".$imagen);
 
         # Calculo del COSTO Y OBTENCION DE NUEVOS PRECIOS
-        
         $result = calculos($id_prov, $costo);
         $docena = $result[0];
         $oferta = $result[1];
@@ -69,10 +65,10 @@ if ($_GET && isset($_GET['modificar'])) {
         die();
     } else {
         // Redirect the user to galeria.php
-        header("Location: galeria.php?option=" . $_SESSION['option']);
+        header("Location: galeria.php?option=" . $_GET['option']);
         exit();
     }
-    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -80,7 +76,7 @@ if ($_GET && isset($_GET['modificar'])) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Galeria</title>
+    <title>Modificar</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -88,10 +84,10 @@ if ($_GET && isset($_GET['modificar'])) {
     
 </head>     
 <?php #leemos proyectos 1 por 1
-$texto = $_SESSION['option'];
+$texto = $_GET['option'];
 
 foreach($proyecto as $fila){ ?>
-    <a href="galeria.php?option=<?php echo $_SESSION['option']; ?>" class="back-link"><i class="fas fa-arrow-left"></i></a>
+    <a href="galeria.php?option=<?php echo $_GET['option']; ?>" class="back-link"><i class="fas fa-arrow-left"></i></a>
     <div class="container mt-3">
         <div class="row justify-content-center">
             <div class="col-md-8 col-sm-10">
@@ -146,7 +142,7 @@ foreach($proyecto as $fila){ ?>
                                 <input class="btn btn-warning btn-md" type="submit" value="Modificar Registro"
                                     onclick="return processForm(event);">
                                 <input class="btn btn-danger btn-md mx-2" type="button" name="Cancelar" value="Cancelar"
-                                    onClick="location.href='galeria.php?option=<?php echo $_SESSION['option']; ?>'">
+                                    onClick="location.href='galeria.php?option=<?php echo $_GET['option']; ?>'">
                             </div>
                         </form>
                     </div><!--cierra el card-body-->
@@ -167,4 +163,3 @@ foreach($proyecto as $fila){ ?>
         }
     }
 </script>
-º
