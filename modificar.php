@@ -11,16 +11,17 @@ if ($_GET && isset($_GET['modificar'])) {
      
     $opcion = $_GET['option'];
 
-    $proyecto = $conexion->consultar("SELECT * FROM $opcion WHERE id=" . $id);
+    $proyecto = $conexion->consultar("SELECT cod_art, id_prov, descripcion, costo, fecha_alta, imagen FROM $opcion WHERE id=" . $id);
     }
 
     if($_POST) {
         $id = $_SESSION['id_proyecto'];
-        #debemos recuperar la imagen actual y borrarla del servidor para lugar pisar con la nueva imagen en el server y en la base de datos
+        #debemos recuperar la imagen actual y borrarla del servidor para lugar pisar con la 
+        #nueva imagen en el servidor y en la base de datos
         #recuperamos la imagen de la base antes de borrar 
-        #$imagen = $conexion->consultar("select imagen FROM `proyectos` where id=".$id);
+        $imagen = $conexion->consultar("SELECT imagen FROM $opcion WHERE id=".$id);
         #la borramos de la carpeta 
-        #unlink("imagenes/".$imagen[0]['imagen']);
+        unlink("imagenes/" . $imagen[0]['imagen']);
         
         #levantamos los datos del formulario
         $cod_art = $_POST['cod_art'];
@@ -39,13 +40,13 @@ if ($_GET && isset($_GET['modificar'])) {
         $fecha_alta = $_POST['fecha_alta'];
         
         #nombre de la imagen
-        #$imagen = $_FILES['archivo']['name'];
+        $imagen = $_FILES['imagen']['name'];
         #tenemos que guardar la imagen en una carpeta 
-        #$imagen_temporal=$_FILES['archivo']['tmp_name'];
+        $imagen_temporal=$_FILES['imagen']['tmp_name'];
         #creamos una variable fecha para concatenar al nombre de la imagen, para que cada imagen sea distinta y no se pisen 
         #$fecha = new DateTime();
         #$imagen= $fecha->getTimestamp()."_".$imagen;
-        #move_uploaded_file($imagen_temporal,"imagenes/".$imagen);
+        move_uploaded_file($imagen_temporal, "imagenes/" . $imagen);
 
         # Calculo del COSTO Y OBTENCION DE NUEVOS PRECIOS
         $result = calculos($id_prov, $costo);
@@ -54,7 +55,7 @@ if ($_GET && isset($_GET['modificar'])) {
 
         $sql = "UPDATE $opcion SET `cod_art` = '$cod_art' , `id_prov` = '$id_prov' , 
                 `descripcion` = '$descripcion' ,`costo`= '$costo', `precio_doc` = '$docena' , 
-                `precio_oferta` = '$oferta' , `fecha_alta` = '$fecha_alta' 
+                `precio_oferta` = '$oferta' , `fecha_alta` = '$fecha_alta' , `imagen` = '$imagen' 
                 WHERE $opcion.`id` = '$id';";
         
         $id_proyecto = $conexion->ejecutar($sql);
@@ -138,11 +139,17 @@ foreach($proyecto as $fila){ ?>
                                     value="<?php echo $fila['fecha_alta']; ?>">
                             </div>
 
-                            <div class="d-flex justify-content-center mt-4">
-                                <input class="btn btn-warning btn-md" type="submit" value="Modificar Registro"
-                                    onclick="return processForm(event);">
-                                <input class="btn btn-danger btn-md mx-2" type="button" name="Cancelar" value="Cancelar"
-                                    onClick="location.href='galeria.php?option=<?php echo $_GET['option']; ?>'">
+                            <div class="mb-3">
+                                <label for="imagen" class="form-label">Imagen</label>
+                                <input class="form-control" type="file" name="imagen" id="imagen">
+                                <small class="text-muted">Archivo Actual : <?php echo $fila['imagen']; ?></small>
+                                </div>
+
+                                <div class="d-flex justify-content-center mt-4">
+                                    <input class="btn btn-warning btn-md" type="submit" value="Modificar Registro"
+                                        onclick="return processForm(event);">
+                                    <input class="btn btn-danger btn-md mx-2" type="button" name="Cancelar" value="Cancelar"
+                                        onClick="location.href='galeria.php?option=<?php echo $_GET['option']; ?>'">
                             </div>
                         </form>
                     </div><!--cierra el card-body-->
