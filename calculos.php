@@ -1,6 +1,6 @@
 <?php
 function calculos ($id_prov, $costo) {
-    if ($id_prov != 13 && $id_prov != 16 && $id_prov != 24) 
+    if ($id_prov != 13 && $id_prov != 16 && $id_prov != 24 && $id_prov != 17 ) 
         {
             $a = (30 * $costo) / 100;
             $docena = $costo + $a;
@@ -32,14 +32,21 @@ function calculos ($id_prov, $costo) {
                     $f = (50 * $d) / 100;
                     $oferta = $f + $d;
                     return array($docena, $oferta);
-                } else {
+                } elseif ($id_prov == 17)
+                    {
+                        $a = (30 * $costo) / 100;
+                        $docena = $costo + $a;
+                        $b = (40 * $costo) / 100;
+                        $oferta = $b + $costo;
+                        return array($docena, $oferta);
+                    } else {
                             $a = (22 * $costo) / 100;
                             $docena = $costo + $a;
                             $f = $costo / 12;
                             $g = (55 * $f) / 100;
                             $oferta = $f + $g;
                             return array($docena, $oferta);
-                        }
+                    }
                     
 };
 ?>

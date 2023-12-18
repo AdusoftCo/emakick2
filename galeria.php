@@ -1,52 +1,64 @@
-<?php session_start();?>
-<?php include 'conexion.php';
+<?php session_start();
+include 'conexion.php';
 include 'calculos.php';
 
-$option = isset($_GET['option']) ? $_GET['option'] : '';
-
+$opcion = isset($_GET['option']) ? $_GET['option'] : '';
 $conexion = new conexion();
 
-if ($option) {
-    $opcion = $option;
-    
-    $texto = strtoupper($opcion);
+// Check if a search query is submitted
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['searchQuery'])) {
+    $searchQuery = $_GET['searchQuery'];
 
-    #Seccion que TOMA variables pa Borrar o Modificar Registro
-    if ($_GET) {
-        if (isset($_GET['modificar'])) {
-            $id = $_GET['modificar'];
-            header("Location:modificar.php?modificar=" . $id);
-            die();
-        }
+    // Use the search method from the conexion class
+    $results = $conexion->search("%$searchQuery%", $opcion);
 
-        if(isset($_GET['registrar'])) {
-            header("Location:registrar.php?option=" . $option);
-            die();
-        }
+    // Output the search results as JSON
+    echo json_encode($results);
+    exit();
+} else {
+    if ($opcion) {
+        //$opcion = $option;
+        
+        $texto = strtoupper($opcion);
 
-        if (isset($_GET['borrar'])) {
-            $id = $_GET['borrar'];
-            $conexion = new conexion();
+        #Seccion que TOMA variables pa Borrar o Modificar Registro
+        if ($_GET) {
+            if (isset($_GET['modificar'])) {
+                $id = $_GET['modificar'];
+                header("Location:modificar.php?modificar=" . $id);
+                die();
+            }
 
-            #borramos el registro de la base 
-            $sql = "DELETE FROM $opcion WHERE $opcion.`id` =".$id;
-            $id_proyecto = $conexion->ejecutar($sql);
-            #para que no intente borrar muchas veces
-            header("Location:galeria.php?option=" . $option);
-            die();
+            if(isset($_GET['registrar'])) {
+                header("Location:registrar.php?option=" . $option);
+                die();
+            }
 
-            //header("Location:galeria.php");
-            //die();
+            if (isset($_GET['borrar'])) {
+                $id = $_GET['borrar'];
+                $conexion = new conexion();
+
+                #borramos el registro de la base 
+                $sql = "DELETE FROM $opcion WHERE $opcion.`id` =".$id;
+                $id_proyecto = $conexion->ejecutar($sql);
+                #para que no intente borrar muchas veces
+                header("Location:galeria.php?option=" . $option);
+                die();
+
+                //header("Location:galeria.php");
+                //die();
+            }
         }
     }
-    $sql = "SELECT " . $opcion . ".id, " . $opcion . ".cod_art, " . $opcion . ".id_prov, " 
-            . $opcion . ".descripcion, " . $opcion . ".precio_doc, " . $opcion . ".precio_oferta," 
-            . $opcion . ".fecha_alta, " . $opcion . ".imagen, fabricants.nombre 
-            FROM " . $opcion . "
-            INNER JOIN fabricants ON " . $opcion . ".id_prov = fabricants.id";
-    $opData = $conexion->consultar($sql);
+        $sql = "SELECT " . $opcion . ".id, " . $opcion . ".cod_art, " . $opcion . ".id_prov, " 
+                . $opcion . ".descripcion, " . $opcion . ".precio_doc, " . $opcion . ".precio_oferta," 
+                . $opcion . ".fecha_alta, " . $opcion . ".imagen, fabricants.nombre 
+                FROM " . $opcion . "
+                INNER JOIN fabricants ON " . $opcion . ".id_prov = fabricants.id";
+        $opData = $conexion->consultar($sql);
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -66,15 +78,19 @@ if ($option) {
     <div class="fixed-section">
         <div class="d-flex align-items-center justify-content-between">
             <div id="search-box" class="mt-3">
-                <input type="text" placeholder="Search records..." class="form-control p-0">
-                <a href="#" id="search-button" class="search-icon"><i class="fas fa-search"></i></a>
-            </div>
+                <form id="search-form" method="post" action="galeria.php">
+                    <input type="hidden" name="option" value="<?php echo $opcion; ?>">
+                    <input type="text" id="searchQuery" name="searchQuery" placeholder="Search records..." class="form-control p-0">
+                    <button type="button" class="search-icon"><i class="fas fa-search"></i></button>
+                </form>
+           </div>
+            
             <a href="index_admin.php" class="back-link"><i class="fas fa-arrow-left"></i></a>
             <a href="#" class="back-link" id="search-icon"><i class="fas fa-search"></i></a>
         </div>
         
-        <div class="row d-flex justify-content-center mt-0 mb-0">
-            <div class="col-md-8 col-sm-10">
+        <div class="row d-flex justify-content-center mb-0">
+            <div class="col-md-8 col-sm-10 mt-3">
                 <h2><b><i>SECCION
                     <?php echo $texto; ?>
                 </i></b></h2>
@@ -95,7 +111,7 @@ if ($option) {
                     </button>    -->
 
     <!-- TABLA CON LOS REGISTROS ACTUALES -->
-    <div style="background-color:#f2f0f7; margin-top: 175px;">
+    <div style="background-color:#f2f0f7; margin-top: 35px;">
         <div class="row d-flex justify-content-center mb-5">
             <div class="col-md-10 col-sm-6 mt-3">
                 <div>
@@ -210,27 +226,25 @@ if ($option) {
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
 
     <script>
-        const searchInput = document.getElementById('search-input');
-        const searchButton = document.getElementById('search-button');
+        const searchButton = document.querySelector('.search-icon');
+        const searchForm = document.getElementById('search-form');
 
-        searchButton.addEventListener('click', () => {
-            const searchQuery = searchInput.value;
-            // Here you can implement your search logic using the searchQuery
-            // For example, you can use AJAX to fetch search results from the server
-            console.log('Search query:', searchQuery);
-            // Implement your search logic here
-        });
+        searchButton.addEventListener('click', (event) => {
+            event.preventDefault(); // Prevent default form submission
+            const searchQuery = document.getElementById('searchQuery').value;
+
+            // Make an AJAX request to galeria.php with the searchQuery
+            fetch(`galeria.php?option=<?php echo $opcion; ?>&searchQuery=${searchQuery}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        // Update the page content with the search results
+                        console.log('Resultados:', data);
+                        // You can update the page content, display results in a modal, etc.
+                    })
+                    .catch(error => console.error('Error:', error));
+            });
     </script>
 
-    <!--Funcion para Preguntar Borrado-->
-    <script>
-        const searchIcon = document.getElementById('search-icon');
-        const searchBox = document.getElementById('search-box');
-
-        searchIcon.addEventListener('click', () => {
-            searchBox.style.display = searchBox.style.display === 'none' ? 'block' : 'none';
-        });
-    </script>
 
     <script type="text/javascript">
         function wantdelete(e) {

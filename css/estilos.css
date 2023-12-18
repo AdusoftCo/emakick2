@@ -82,9 +82,10 @@ body {
 .container {
     display: flex;
     flex-direction: column;
+    padding-top: 20px;
     align-items: center;
     justify-content: center;
-    min-height: 25vh;
+    min-height: 35vh;
 }
 .options-list {
     list-style: none;
@@ -111,12 +112,11 @@ body {
 
 .dropdown-container {
     margin-top: 20px;
-    /* Adjust the value as needed */
+    
 }
 
 h2 {
-    margin-top: 50px;
-    /* Adjust the value as needed */
+    margin-top: 10px;
     text-align: center;
 }
 
@@ -151,8 +151,7 @@ h2 {
     position: fixed;
     top: 3px;
     left: 180px;
-    /* Adjust the left position as needed */
-    display: none;
+    
 }
 
 .search-icon {
@@ -215,7 +214,6 @@ h2 {
 @media (max-width: 768px) {
     body {
         background-color: #f8f9fa;
-            /* Background color for the entire page */
     }
     .image-size{
         width: 80%;
@@ -223,20 +221,13 @@ h2 {
     }
 
     .fixed-section {
-        position: fixed;
-        top: 0;
-        left: 0;
+        position: static;
+        margin-top: 30px;
         width: 100%;
-        z-index: 150;
-        /* Adjust the z-index as needed */
-        background-color: #fff;
+        background-color:#f8f9fa;
     }
 
-    /* Adjust padding or margins for spacing as needed */
-    .fixed-section .d-flex {
-        padding: 10px;
-    }
-
+    
     .dropdown-container {
         margin-top: 10px;
         /* Adjust the value as needed */
@@ -255,9 +246,15 @@ h2 {
         top: 18px;
         left: 20px;
         color: #333;
-        /* Set your desired color */
         text-decoration: none;
     }
+        .back-link3 {
+            position: fixed;
+            top: 18px;
+            left: 20px;
+            color: #333;
+            text-decoration: none;
+        }
 
     /* Style for the search icon */
     .back-link:last-child {
@@ -367,14 +364,11 @@ h2 {
         padding: 20px;
     }
     .mb-3 {
-        margin-bottom: 10px;
+        margin-bottom: 20px;
     }
 
     .mt-4 {
         margin-top: 10px;
     }
-/* Apply styles with !important to override other styles */
-
 }
-        
                 

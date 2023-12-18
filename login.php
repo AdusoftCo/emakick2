@@ -11,7 +11,7 @@
       from usuarios where
       es_admin = 'S';*/
       /* USUARIOS["mail"] */
-        if( ($_POST['email']=="administrador") && ($_POST['pass']=='cac') ){
+        if( ($_POST['email']=="admin") && ($_POST['pass']=='cac') ){
           $_SESSION['usuario']="Admin";
           $_SESSION['logueado']='S';
           #redirecciono porque ingreso ok 
@@ -33,7 +33,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulario Inicio</title>
+    <title>Login Backend</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
@@ -48,14 +48,17 @@
         <div class="text-center mb-3">
             <img src="imagenes/1.png" alt="Logo" width="100" height="100" class="img-fluid d-block mx-auto">
         </div>
-        <form action="login.php" method="post" class=" mt-5">
+
+        <form action="login.php" method="post" class="mt-5">
             <div class="mb-3">
                 <input type="text" name="email" id="email" class="form-control" 
                 placeholder="Usuario" required>
             </div>
+
             <div class="mb-3">
                 <input type="password" name="pass" id="subject" class="form-control" 
                 placeholder="Password" required>
+                
                 <div class="recuperar-link">
                     <a href="#" class="disabled-link">recuperar contraseña</a>
                 </div>

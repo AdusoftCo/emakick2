@@ -143,13 +143,13 @@ foreach($proyecto as $fila){ ?>
                                 <label for="imagen" class="form-label">Imagen</label>
                                 <input class="form-control" type="file" name="imagen" id="imagen">
                                 <small class="text-muted">Archivo Actual : <?php echo $fila['imagen']; ?></small>
-                                </div>
+                            </div>
 
-                                <div class="d-flex justify-content-center mt-4">
-                                    <input class="btn btn-warning btn-md" type="submit" value="Modificar Registro"
-                                        onclick="return processForm(event);">
-                                    <input class="btn btn-danger btn-md mx-2" type="button" name="Cancelar" value="Cancelar"
-                                        onClick="location.href='galeria.php?option=<?php echo $_GET['option']; ?>'">
+                            <div class="d-flex justify-content-center mt-4">
+                                <input class="btn btn-warning btn-md" type="submit" value="Modificar Registro"
+                                    onclick="return processForm(event);">
+                                <input class="btn btn-danger btn-md mx-2" type="button" name="Cancelar" value="Cancelar"
+                                    onClick="location.href='galeria.php?option=<?php echo $_GET['option']; ?>'">
                             </div>
                         </form>
                     </div><!--cierra el card-body-->
