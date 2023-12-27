@@ -5,6 +5,7 @@ include 'calculos.php';
 $opcion = isset($_GET['option']) ? $_GET['option'] : '';
 $conexion = new conexion();
 
+
 // Check if a search query is submitted
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['searchQuery'])) {
     $searchQuery = $_GET['searchQuery'];
@@ -12,11 +13,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['searchQuery'])) {
     // Use the search method from the conexion class
     $results = $conexion->search("%$searchQuery%", $opcion);
 
-    // Output the search results as JSON
-    echo json_encode($results);
+    // Output the search results as HTML
+    displaySearchResults($results);
+
     exit();
-} else {
-    if ($opcion) {
+} 
+
+if ($opcion) {
         //$opcion = $option;
         
         $texto = strtoupper($opcion);
@@ -56,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['searchQuery'])) {
                 FROM " . $opcion . "
                 INNER JOIN fabricants ON " . $opcion . ".id_prov = fabricants.id";
         $opData = $conexion->consultar($sql);
-}
+
 ?>
 
 
@@ -77,17 +80,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['searchQuery'])) {
 <body>
     <div class="fixed-section">
         <div class="d-flex align-items-center justify-content-between">
-            <div id="search-box" class="mt-3">
-                <form id="search-form" method="post" action="galeria.php">
-                    <input type="hidden" name="option" value="<?php echo $opcion; ?>">
-                    <input type="text" id="searchQuery" name="searchQuery" placeholder="Search records..." class="form-control p-0">
-                    <button type="button" class="search-icon"><i class="fas fa-search"></i></button>
-                </form>
-           </div>
-            
             <a href="index_admin.php" class="back-link"><i class="fas fa-arrow-left"></i></a>
-            <a href="#" class="back-link" id="search-icon"><i class="fas fa-search"></i></a>
+
+            <div id="search-box" class="mt-3">
+                <form id="search-form" method="get" action="galeria.php">
+                    <input type="text" id="searchQuery" name="searchQuery" placeholder="Search records..."
+                        class="form-control p-1">
+                    <button type="submit" class="search-icon"><i class="fas fa-search"></i></button>
+                </form>
+            </div>
+            
+            
         </div>
+
         
         <div class="row d-flex justify-content-center mb-0">
             <div class="col-md-8 col-sm-10 mt-3">
@@ -95,8 +100,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['searchQuery'])) {
                     <?php echo $texto; ?>
                 </i></b></h2>
                 <div class="ms-4 mt-4">
-                    <a name="registrar" id="registrar" href="registrar.php?option=<?php echo $option; ?>" 
-                    class="btn boton">
+                    <a class="btn boton" name="registrar" id="registrar" href="registrar.php?option=<?php echo $opcion; ?>" >
                         <span class="text-span">ALTA NUEVO ARTICULO</span>
                     </a>
                 </div>
@@ -111,11 +115,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['searchQuery'])) {
                     </button>    -->
 
     <!-- TABLA CON LOS REGISTROS ACTUALES -->
+    
     <div style="background-color:#f2f0f7; margin-top: 35px;">
         <div class="row d-flex justify-content-center mb-5">
             <div class="col-md-10 col-sm-6 mt-3">
                 <div>
                     <h3 style="text-align:center; padding: 10px;"><b>MODIFICAR O BORRAR ARTICULOS</b></h2>
+                </div>
+                <div id="search-results-container">
+                    <!-- Search results will be inserted here dynamically -->
                 </div>
                 <table class="table tabla__galeria" style="background-color:#FAFAFA;">
                     <thead>
@@ -160,61 +168,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['searchQuery'])) {
                 </table>
                 <!--Mobile Design From Here-->
                 <?php #leemos proyectos 1 por 1
-                foreach ($opData as $op) { ?>
-                    <div class="col card__mobile mb-4">
-                        <div class="card border border-3 shadow w-100">
-                            <div class="table-responsive">
-                                <table class="table">
-                                    <tbody>
-                                        <tr>
-                                            <th scope="col">Imagen:</th>
-                                            <td><img src="/emakickPhp/emakick2/imagenes/<?php echo $op['imagen']; ?>" 
-                                            style="max-width: 100px; max-height: 75px;"></td>
-
-                                        </tr>
-                                        <tr>
-                                            <th scope="col">Cod.Artículo:</th>
-                                            <td><?php echo $op['cod_art'] . "&nbsp;&nbsp;&nbsp;Modificado: " . $op['fecha_alta']; ?></td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="col">Proveedor : </th>
-                                            <td>
-                                                <?php echo $op['nombre']; ?>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="col">Descripción : </th>
-                                            <td>
-                                                <?php echo $op['descripcion']; ?>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="col">Precio Docena: $</th>
-                                            <td>
-                                                <?php echo $op['precio_doc']; ?>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="col">Oferta Unidad: $</th>
-                                            <td>
-                                                <?php echo $op['precio_oferta']; ?>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <div class="d-flex justify-content-center mb-2">
-                                    <div>
-                                        <a name="modificar" id="modificar"
-                                            href="modificar.php?option=<?php echo $_GET['option']; ?>&modificar=<?php echo $op['id']; ?>"
-                                            class="btn btn-warning">Modificar</a>
-                                        <a onclick='wantdelete(event)' name="eliminar" id="eliminar" class="btn btn-danger"
-                                            href="galeria.php?option=<?php echo $_GET['option']; ?>&borrar=<?php echo $op['id']; ?>">Eliminar</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                <?php } ?>
+                foreach ($opData as $op) { 
+                    displaySearchResults($op); 
+                } ?>
             </div>
             <!--cierra el col-->
         </div>
@@ -226,20 +182,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['searchQuery'])) {
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
 
     <script>
-        const searchButton = document.querySelector('.search-icon');
+        //const searchButton = document.querySelector('.search-icon');
         const searchForm = document.getElementById('search-form');
+        const searchResultsContainer = document.getElementById('search-results-container');
 
-        searchButton.addEventListener('click', (event) => {
+        searchForm.addEventListener('submit', (event) => {
             event.preventDefault(); // Prevent default form submission
             const searchQuery = document.getElementById('searchQuery').value;
 
             // Make an AJAX request to galeria.php with the searchQuery
             fetch(`galeria.php?option=<?php echo $opcion; ?>&searchQuery=${searchQuery}`)
-                    .then(response => response.json())
-                    .then(data => {
+                    .then(response => response.text())
+                    .then(html => {
                         // Update the page content with the search results
-                        console.log('Resultados:', data);
-                        // You can update the page content, display results in a modal, etc.
+                        searchResultsContainer.innerHTML = html;
+                        
                     })
                     .catch(error => console.error('Error:', error));
             });

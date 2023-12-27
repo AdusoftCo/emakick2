@@ -137,7 +137,7 @@ h2 {
     color: aliceblue;
 }
 
-.back-link:last-child {
+.back-link {
     position: fixed;
     top: 10px;
     left: 20px;
@@ -148,21 +148,24 @@ h2 {
 
 /* Style for the search box */
 #search-box {
-    position: fixed;
+    position: relative;
     top: 3px;
-    left: 180px;
-    
+    left: auto;
+    display: flex;
+    align-items: center;
 }
-
+#search-form {
+    display: flex;
+    align-items: center;
+}
+#searchQuery {
+    margin-right: 5px;
+    /* Adjust the margin as needed */
+}
 .search-icon {
-    position: absolute;
-    right: 15px;
-    top: 50%;
-    transform: translateY(-50%);
     color: #5728b7;
     cursor: pointer;
 }
-
 /* Custom styles for the footer dropdowns */
 /* Add this CSS to adjust spacing */
 .footer-dropdown .container {
@@ -205,7 +208,7 @@ h2 {
         width: 100%;
         margin: 0 0 10px;
 }
-.whatsapp{
+.whatsapp {
     color: forestgreen;
 }
 
@@ -226,8 +229,7 @@ h2 {
         width: 100%;
         background-color:#f8f9fa;
     }
-
-    
+        
     .dropdown-container {
         margin-top: 10px;
         /* Adjust the value as needed */
@@ -242,26 +244,31 @@ h2 {
     }
 
     .back-link {
-        position: fixed;
-        top: 18px;
-        left: 20px;
-        color: #333;
-        text-decoration: none;
-    }
-        .back-link3 {
-            position: fixed;
-            top: 18px;
-            left: 20px;
-            color: #333;
-            text-decoration: none;
-        }
-
-    /* Style for the search icon */
-    .back-link:last-child {
         top: 16px;
-        left: auto;
+        left: 16px;
         right: 35px;
     }
+    #search-box {
+        position: absolute;
+        top: -32px;
+        right: 15px;
+        display: flex;
+        align-items: center;
+    }
+    #search-form {
+        display: flex;
+        align-items: center;
+    }
+
+    #searchQuery {
+        margin-right: 5px;
+        /* Adjust the margin as needed */
+    }
+    .search-icon {
+        color: #5728b7;
+        cursor: pointer;
+    }
+        
     .footer-dropdown .dropdown-menu {
         width: 100vw;
         }

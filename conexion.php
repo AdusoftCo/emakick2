@@ -37,11 +37,26 @@
          3ro fetchall() nos devuelve un array con las filas del select  */
     }
 
-    public function search($searchQuery, $table) {
-        $sql = "SELECT * FROM $table WHERE descripcion LIKE :searchQuery";
+    public function search($searchQuery, $table)
+    {
+        $sql = "SELECT $table.id, $table.cod_art, $table.id_prov, $table.descripcion, fabricants.nombre AS fabricant_name, "
+            . "$table.precio_doc, $table.precio_oferta, $table.fecha_alta, $table.imagen "
+            . "FROM $table "
+            . "INNER JOIN fabricants ON $table.id_prov = fabricants.id "
+            . "WHERE $table.descripcion LIKE :searchQuery OR fabricants.nombre LIKE :searchQuery";
+
         $stmt = $this->pdo->prepare($sql);
         $stmt->bindParam(':searchQuery', $searchQuery, PDO::PARAM_STR);
         $stmt->execute();
-        return $stmt->fetchAll();
+
+        $results = $stmt->fetchAll();
+
+        if (empty($results)) {
+            // No matching records found
+            return false;
+        }
+
+        return $results;
     }
+
 } ?>
