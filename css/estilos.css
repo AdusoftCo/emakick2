@@ -7,6 +7,61 @@ body {
     background-color: #f8f9fa;
 }
 
+.ronded {
+    border-radius: 10%;
+    overflow: hidden;
+}
+
+.navbar-light .navbar-toggler-icon {
+    background-color: #fff;
+}
+
+.navbar-light .navbar-nav .nav-link {
+    color: #000;
+}
+
+.navbar-toggler {
+    z-index: 1001;
+    margin-top: 1.5rem;
+    padding-top: 0.25rem;
+}
+
+.navbar-toggler:focus {
+    outline: none !important;
+    box-shadow: none !important;
+    border: none !important;
+}
+
+.navbar-dropdown .dropdown-menu[data-bs-popper] {
+    background-color: #f8f8fe;
+    top: 80%;
+}
+
+.navbar-collapse {
+    margin-top: 20px;
+    z-index: 1000;
+    background-color: #f8f8fe;
+    position: absolute;
+    width: 100%;
+    max-height: calc(100vh - 96px);
+    overflow-y: auto;
+    top: 96px;
+    left: 0;
+}
+
+.navbar-dropdown button {
+    color: #0000008c;
+}
+
+.navbar-dropdown button::after {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    right: 357px;
+    top: 55%;
+    transform: translateY(-50%);
+}
+
 .dropdown-menu {
     right: 0;
     left: auto;
@@ -218,6 +273,9 @@ h2 {
     body {
         background-color: #f8f9fa;
     }
+    .text-pink {
+        color: #5728b7;
+    }
     .image-size{
         width: 80%;
         height: 55%;
@@ -233,10 +291,6 @@ h2 {
     .dropdown-container {
         margin-top: 10px;
         /* Adjust the value as needed */
-    }
-
-    .tabla__galeria {
-        display: none !important;
     }
 
     .card__mobile {

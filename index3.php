@@ -1,9 +1,10 @@
 <?php
 session_start();
+error_reporting(E_ALL ^ E_NOTICE);
+
+include 'conexion.php';
+include 'calculos.php';   
 ?>
-<?php error_reporting(E_ALL ^ E_NOTICE); ?>
-<?php include 'conexion.php'; ?>
-<?php include 'navbar.php'; ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -12,87 +13,142 @@ session_start();
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
   <title>Emakick's</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" 
-    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    
+    <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/estilos.css">
 </head>
 
 <body>
-  
   <div class="container-fluid p-0">
-    <div class="row justify-content-center">
-      <div class="col-12 mt-0">
-        <form method="GET" action="search.php">
-          <div class="input-group mb-2">
-            <input type="text" class="form-control ms-3" name="query" placeholder="Buscar..."
-                            style="width: calc(90% - 50px);">
-            <button class="btn" type="submit" style="color: #5728b7;"><i class="bi bi-search"></i></button>
-          </div>
-        </form>
-      </div>
+    <!-- Navbar with Bootstrap -->
+    <nav class="navbar navbar-dropdown navbar-expand-lg navbar-light">
+    <button class="navbar-toggler pt-4 pe-1" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+      aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="text-center mt-3 mb-3">
+      <img src="imagenes/1.png" alt="Logo" width="90" height="90" class="img-fluid d-block mx-auto ronded">
+    </div>  
+
+    <!-- User Icon (Move this to the right corner) -->
+    <div class="ml-auto d-flex align-items-center order-lg-2">
+      <a class="nav-link pt-5 pe-3" href="#" role="button" data-bs-toggle="dropdown"
+        data-bs-target="#userDropdownMenu">
+        <i class="fas fa-user mobile-icon"></i>
+      </a>
+      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdownMenu">
+        <li><a class="dropdown-item" href="registro.php">Registro</a></li>
+        <li><a class="dropdown-item" href="login.php">Iniciar Sesión</a></li>
+      </ul>
     </div>
-    <div class="row justify-content-center carousel-row mt-4">
-      <div class="col-12 p-0">
-        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-          <ol class="carousel-indicators">
-            <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"></li>
-            <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"></li>
-            <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"></li>
-          </ol>
-          <div class="carousel-inner">
-            <div class="carousel-item active">
-              <img src="imagenes/Bikini0923-2.png" class="d-block w-100 carousel-image" alt="Image 1">
-            </div>
-            <div class="carousel-item">
-              <img src="imagenes/Bikini0923B.png" class="d-block w-100 carousel-image" alt="Image 2">
-            </div>
-            <div class="carousel-item">
-              <img src="imagenes/Bikini0923-4.png" class="d-block w-100 carousel-image" alt="Image 3">
-            </div>
-          </div>
-          <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-          </a>
-          <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-          </a>
+
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav mt-1 ps-3">
+        <li class="nav-item">
+          <a class="nav-link" href="#">Ofertas</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+            data-bs-target="#listadosDropdownMenu">Listados</a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown" id="listadosDropdownMenu">
+            <li><a class="dropdown-item nav-link" href="#" data-bs-option="damas">Damas</a></li>
+            <li><a class="dropdown-item nav-link" href="#" data-bs-option="masculinos">Hombres</a></li>
+            <li><a class="dropdown-item nav-link" href="#" data-bs-option="medias">Medias</a></li>
+            <li><a class="dropdown-item nav-link" href="#" data-bs-option="cami_son_setas">Camisones-Pijamas-Camisetas</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <button class="btn dropdown-toggle ps-0" type="button" id="dropdownText" data-bs-toggle="dropdown" aria-expanded="false">
+              Contacto
+          </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownText">
+              <li><p class="ms-3">
+                    <i class="fas fa-map-marker-alt"></i>
+                      Castelli 234 Local 1, Once C.A.B.A.
+                  </p>
+              </li>
+              <li><p class="ms-3">
+                    <i class="fas fa-phone"></i>
+                    11 5653 2820
+                  </p>
+              </li>
+              <li><p class="ms-3">
+                    <i class="fas fa-envelope"></i>
+                    janere_645@hotmail.com
+                  </p>
+              </li>
+            </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle ml-0" href="#" role="button" data-bs-toggle="dropdown"
+            data-bs-target="#lenceriaDropdownMenu">Lenceria</a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown" id="lenceriaDropdownMenu">
+            <li><a class="dropdown-item" href="#" data-bs-option="damas">Damas</a></li>
+            <li><a class="dropdown-item" href="#">Hombres</a></li>
+            <li><a class="dropdown-item" href="#">Niños</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <!--Rest of the Body (Carrousel!)-->
+  <div class="row justify-content-center">
+    <div class="col-12 mt-0">
+      <form id="searchForm" method="get" action="index3.php">
+        <div class="input-group mb-2">
+          <input type="text" class="form-control ms-3" id="searchQuery" name="searchQuery" placeholder="Buscar..."
+                style="width: calc(90% - 50px);">
+          <button class="btn" type="submit" style="color: #5728b7;"><i class="bi bi-search"></i></button>
         </div>
+      </form>
+    </div>
+  </div>
+  <div class="row justify-content-center carousel-row mt-4">
+    <div class="col-12 p-0">
+      <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+        <ol class="carousel-indicators">
+          <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"></li>
+          <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"></li>
+          <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="imagenes/Bikini0923-2.png" class="d-block w-100 carousel-image" alt="Image 1">
+          </div>
+          <div class="carousel-item">
+            <img src="imagenes/Bikini0923B.png" class="d-block w-100 carousel-image" alt="Image 2">
+          </div>
+          <div class="carousel-item">
+            <img src="imagenes/Bikini0923-4.png" class="d-block w-100 carousel-image" alt="Image 3">
+          </div>
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </a>
       </div>
     </div>
-
-    
-      <div class="col-12 mt-5 mb-4 text-center">
-        <h2>TEMPORADA PRIMAVERA-VERANO 2024</h2>
-      </div>
-      <div class="col-12 text-center">
-        <img src="imagenes/dama1_ps.png" alt="Mujer Image" class="image-size">
-      </div>
-    
-
-    
-      <div class="col-12 mt-4 mb-4 text-center">
-        <h2>HOMBRES</h2>
-      </div>
-      <div class="col-12 text-center">
-        <img src="imagenes/hombre_ps.png" alt="Hombre Image" class="image-size"> 
-      </div>
-    
-    
-   
-      <div class="col-12 mt-4 mb-4 text-center">
-        <h2>CHICOS</h2>
-      </div>
-      <div class="col-12 text-center">
-        <img src="imagenes/chica_ps.png" alt="Niños Image" class="image-size">
-      </div>
-   
-    
   </div>
+
+  <div class="text-pink">
+    <div class="col-12 mt-5 mb-4 text-center">
+      <h2>TEMPORADA VERANO 2024</h2>
+    </div>
+    
+    <?php
+    // Example usage of the generateSection function
+    //generateSection("TEMPORADA VERANO 2024", "imagenes/verano.png", "Verano Image");
+    generateSection("DAMAS", "imagenes/dama1_ps.png", "damas.php", "Mujer Image");
+
+    generateSection("HOMBRES", "imagenes/hombre-playa.webp", "", "Hombre Image");
+
+    generateSection("CHICOS", "imagenes/nina-playa.webp", "", "Niños Image");
+    ?>
   
   <!-- Modal to display the table content -->
   <div class="modal fade" id="tableModal" tabindex="-1" aria-hidden="true">
@@ -171,14 +227,10 @@ session_start();
   </div>
 </footer>
 
-<!-- JavaScript Bundle with Popper -->
+<!-- JavaScript Bundle -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
-          integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
-          crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" 
-  integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-  
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
   <script>
   $(document).ready(function() {
   var modal = $('#tableModal');
@@ -222,6 +274,5 @@ session_start();
     });
   });  
   </script>
-
 </body>
 </html>

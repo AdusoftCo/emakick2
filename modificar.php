@@ -1,4 +1,7 @@
 <?php session_start();
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 include 'conexion.php';
 include 'calculos.php';
 
@@ -12,53 +15,65 @@ if ($_GET && isset($_GET['modificar'])) {
     $opcion = $_GET['option'];
 
     $proyecto = $conexion->consultar("SELECT cod_art, id_prov, descripcion, costo, fecha_alta, imagen FROM $opcion WHERE id=" . $id);
+}
+
+if ($_POST) {
+    $id = $_SESSION['id_proyecto'];
+
+    #debemos recuperar la imagen actual y borrarla del servidor para luego pisar con la 
+    #nueva imagen en el servidor y en la base de datos
+    #recuperamos la imagen de la base antes de borrar 
+    $imagen_actual = $conexion->consultar("SELECT imagen FROM $opcion WHERE id=" . $id);
+
+    # Check if a new image is being uploaded
+    if (!empty($_FILES['imagen']['name'])) {
+        # la borramos de la carpeta
+        unlink("imagenes/" . $imagen_actual[0]['imagen']);
+
+        # nombre de la nueva imagen
+        $imagen_nueva = $_FILES['imagen']['name'];
+        # tenemos que guardar la nueva imagen en una carpeta
+        $imagen_temporal = $_FILES['imagen']['tmp_name'];
+        # creamos una variable fecha para concatenar al nombre de la imagen, para que cada imagen sea distinta y no se pisen
+        $fecha = time();
+        $imagen_nueva = $fecha . "_" . $imagen_nueva;
+
+        if ($_FILES['imagen']['error'] === UPLOAD_ERR_OK) {
+            // Check if the file was successfully uploaded
+            if (move_uploaded_file($imagen_temporal, "imagenes/" . $imagen_nueva)) {
+                echo "File uploaded successfully.";
+            } else {
+                echo "Error moving the uploaded file.";
+            }
+        } else {
+            echo "Error during file upload. Error code: " . $_FILES['imagen']['error'];
+        }
+    } else {
+        // If no new image is uploaded, keep the current image name
+        $imagen_nueva = $imagen_actual[0]['imagen'];
     }
 
-    if($_POST) {
-        $id = $_SESSION['id_proyecto'];
-        #debemos recuperar la imagen actual y borrarla del servidor para lugar pisar con la 
-        #nueva imagen en el servidor y en la base de datos
-        #recuperamos la imagen de la base antes de borrar 
-        $imagen = $conexion->consultar("SELECT imagen FROM $opcion WHERE id=".$id);
-        #la borramos de la carpeta 
-        unlink("imagenes/" . $imagen[0]['imagen']);
-        
-        #levantamos los datos del formulario
-        $cod_art = $_POST['cod_art'];
-        $id_prov = $_POST['id_prov'];
-        // Debug code
-        #echo "Selected id_prov: " . $id_prov . "<br>";
+    #levantamos los datos del formulario
+    $cod_art = $_POST['cod_art'];
+    $id_prov = $_POST['id_prov'];
+    $descripcion = $_POST['descripcion'];
+    $costo = $_POST['costo'];
+    $fecha_alta = $_POST['fecha_alta'];
 
-        // Check if the id_prov exists in the fabricants table
-        #$sql = "SELECT COUNT(*) AS count FROM fabricants WHERE id = $id_prov";
-        #$result = $conexion->consultar($sql);
-        #$count = $result[0]['count'];
-        #echo "Matching rows in fabricants: " . $count . "<br>";
+    # Calculo del COSTO Y OBTENCION DE NUEVOS PRECIOS
+    $result = calculos($id_prov, $costo);
+    $docena = $result[0];
+    $oferta = $result[1];
 
-        $descripcion = $_POST['descripcion'];
-        $costo = $_POST['costo'];
-        $fecha_alta = $_POST['fecha_alta'];
-        
-        #nombre de la imagen
-        $imagen = $_FILES['imagen']['name'];
-        #tenemos que guardar la imagen en una carpeta 
-        $imagen_temporal=$_FILES['imagen']['tmp_name'];
-        #creamos una variable fecha para concatenar al nombre de la imagen, para que cada imagen sea distinta y no se pisen 
-        #$fecha = new DateTime();
-        #$imagen= $fecha->getTimestamp()."_".$imagen;
-        move_uploaded_file($imagen_temporal, "imagenes/" . $imagen);
+    $sql = "UPDATE $opcion SET `cod_art` = '$cod_art' , `id_prov` = '$id_prov' , 
+            `descripcion` = '$descripcion' ,`costo`= '$costo', `precio_doc` = '$docena' , 
+            `precio_oferta` = '$oferta' , `fecha_alta` = '$fecha_alta' , `imagen` = '$imagen_nueva' 
+            WHERE $opcion.`id` = '$id';";
 
-        # Calculo del COSTO Y OBTENCION DE NUEVOS PRECIOS
-        $result = calculos($id_prov, $costo);
-        $docena = $result[0];
-        $oferta = $result[1];
+    // Display the SQL query only if the file upload is successful
+    echo "SQL Query: $sql";
 
-        $sql = "UPDATE $opcion SET `cod_art` = '$cod_art' , `id_prov` = '$id_prov' , 
-                `descripcion` = '$descripcion' ,`costo`= '$costo', `precio_doc` = '$docena' , 
-                `precio_oferta` = '$oferta' , `fecha_alta` = '$fecha_alta' , `imagen` = '$imagen' 
-                WHERE $opcion.`id` = '$id';";
-        
-        $id_proyecto = $conexion->ejecutar($sql);
+    $id_proyecto = $conexion->ejecutar($sql);
 
     if ($id_proyecto === false) {
         // Display an error message or handle the error appropriately
@@ -71,6 +86,7 @@ if ($_GET && isset($_GET['modificar'])) {
     }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -79,8 +95,7 @@ if ($_GET && isset($_GET['modificar'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modificar</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/estilos.css">
     
 </head>     
@@ -160,6 +175,8 @@ foreach($proyecto as $fila){ ?>
 
 <?php } ?>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 <script type="text/javascript">
     function processForm(e){
         var respuest = confirm("¿Desea realmente MODIFICAR el Registro...?");
@@ -170,3 +187,5 @@ foreach($proyecto as $fila){ ?>
         }
     }
 </script>
+</body>
+</html>

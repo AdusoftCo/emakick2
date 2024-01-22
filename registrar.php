@@ -75,7 +75,7 @@ if(isset($_GET['registrar'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registrar</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/estilos.css">
 </head>
 
@@ -87,9 +87,7 @@ if(isset($_GET['registrar'])) {
         
         <div class="row d-flex justify-content-center">
             <div class="col-md-8 col-sm-10">
-                <h2><b><i>SECCION
-                    <?php echo $texto; ?>
-                </i></b></h2>
+                <h2><b><i>SECCION <?php echo $texto; ?></i></b></h2>
             </div>
         </div>
     </div>
@@ -142,20 +140,9 @@ if(isset($_GET['registrar'])) {
     </form>
 </div>
 
+<script src="js/scripts.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-
-<script>
-    function processForm(e) {
-            var respuest = confirm("Desea GRABAR el Registro ...?");
-            if (respuest == false) {
-                e.preventDefault();
-            } else {
-                console.log('ALTA Exitosa !!!');
-            }
-        }
-</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>
