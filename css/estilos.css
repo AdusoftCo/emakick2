@@ -7,7 +7,7 @@ body {
     background-color: #f8f9fa;
 }
 
-.ronded {
+.rounded {
     border-radius: 10%;
     overflow: hidden;
 }
@@ -24,7 +24,9 @@ body {
     z-index: 1001;
     margin-top: 1.5rem;
     padding-top: 0.25rem;
+    border: none !important;
 }
+
 
 .navbar-toggler:focus {
     outline: none !important;
@@ -61,17 +63,23 @@ body {
     top: 55%;
     transform: translateY(-50%);
 }
-
+.custom-search-input {
+    margin: 0;
+    padding: 0;
+    background-color: #f8f8fe;
+    border: none;
+    outline: none;
+    box-shadow: none;
+}
 .dropdown-menu {
     right: 0;
     left: auto;
+    --bs-dropdown-padding-y: 0;
 }
 
 .mobile-icon {
     color: #000;
-    /* Set your desired color for the user icon */
     margin-left: 5px;
-    /* Adjust the margin as needed */
 }
 
 /* Custom styles to remove little down arrow and blue color */
@@ -121,16 +129,6 @@ body {
     transform: translate(-50%, -50%);
 }
 
-/*.image-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: auto;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-}*/
 .display-5.text-center {
     text-align: center;
 }
@@ -175,7 +173,7 @@ h2 {
     text-align: center;
 }
 
-.dropdown-menu.wider {
+.dropdown-menu .wider {
     width: 400px;
     max-width: 110%;
     /* Adjust the value as needed */
@@ -222,22 +220,15 @@ h2 {
     cursor: pointer;
 }
 /* Custom styles for the footer dropdowns */
-/* Add this CSS to adjust spacing */
 .footer-dropdown .container {
     text-align: left;
-    /* Align the text to the left */
     margin-bottom: 20px;
-    /* Add margin to create space below the second dropdown */
 }
 .footer-dropdown .dropdown button {
     width: 100%;
-    /* Make the buttons full width of the container */
     text-align: left;
-    /* Align the text to the left */
     padding-right: 30px;
-    /* Add space for the dropdown arrow */
 }
-
 .boton:focus {
     box-shadow: none !important;
     outline: none !important;
@@ -267,7 +258,6 @@ h2 {
     color: forestgreen;
 }
 
-
 /* Media query for screen widths up to 768px (for mobile devices) */
 @media (max-width: 768px) {
     body {
@@ -275,6 +265,9 @@ h2 {
     }
     .text-pink {
         color: #5728b7;
+    }
+    .text-footer{
+        color: #000 !important;
     }
     .image-size{
         width: 80%;
@@ -319,10 +312,15 @@ h2 {
         /* Adjust the margin as needed */
     }
     .search-icon {
+        box-shadow: none !important;
+        outline: none !important;
         color: #5728b7;
         cursor: pointer;
+        border: none;
+        /* Remove the border */
+        background-color: transparent;
+        /* Remove the background color */
     }
-        
     .footer-dropdown .dropdown-menu {
         width: 100vw;
         }

@@ -77,10 +77,10 @@ if ($opcion) {
     <div class="fixed-section">
         <div class="d-flex align-items-center justify-content-between">
             <a href="index_admin.php" class="back-link"><i class="fas fa-arrow-left"></i></a>
-
+            <!--Formulario Searching -->
             <div id="search-box" class="mt-3">
                 <form id="search-form" method="get" action="galeria.php">
-                    <input type="text" id="searchQuery" name="searchQuery" placeholder="Search records..."
+                    <input type="text" id="searchQuery" name="searchQuery" placeholder="Buscar registros ..."
                         class="form-control p-1">
                     <button type="submit" class="search-icon"><i class="fas fa-search"></i></button>
                 </form>
@@ -113,9 +113,9 @@ if ($opcion) {
                 }
                 ?>
             </div>
-            <table class="table tabla__galeria" style="background-color:#FAFAFA;">
-                <!-- Table content ... -->
-            </table>
+            <!--<table class="table tabla__galeria" style="background-color:#FAFAFA;">
+                 Table content ... 
+            </table>-->
         </div>
     </div>
     
@@ -129,23 +129,21 @@ if ($opcion) {
         const searchResultsContainer = document.getElementById('search-results-container');
 
         searchForm.addEventListener('submit', async (event) => {
-            event.preventDefault(); // Prevent default form submission
-            const searchQuery = document.getElementById('searchQuery').value;
+        event.preventDefault(); // Prevent default form submission
+        const searchQuery = document.getElementById('searchQuery').value;
 
-            // Make an AJAX request to galeria.php with the searchQuery
-            try {
-                const response = await fetch(`galeria.php?option=<?php echo $opcion; ?>&searchQuery=${searchQuery}`);
-                    const html = await response.text();
+        // Make an AJAX request to galeria.php with the searchQuery
+        try {
+            const response = await fetch(`galeria.php?option=<?php echo $opcion; ?>&searchQuery=${searchQuery}`);
+            const html = await response.text();
 
-                    // Update the page content with the search results
-                    searchResultsContainer.innerHTML = html;
-                } catch (error) {
-                    console.error('Error:', error);
-                }
-            });
+            // Update the page content with the search results
+            searchResultsContainer.innerHTML = html;
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        });
     </script>
-
-
 
     <script type="text/javascript">
         function wantdelete(e) {
