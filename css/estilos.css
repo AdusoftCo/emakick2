@@ -1,0 +1,463 @@
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background-color: #f8f9fa;
+}
+
+.rounded {
+    border-radius: 10%;
+    overflow: hidden;
+}
+
+.navbar-light .navbar-toggler-icon {
+    background-color: #fff;
+}
+
+.navbar-light .navbar-nav .nav-link {
+    color: #000;
+}
+
+.navbar-toggler {
+    z-index: 1001;
+    margin-top: 1.5rem;
+    padding-top: 0.25rem;
+    border: none !important;
+}
+
+
+.navbar-toggler:focus {
+    outline: none !important;
+    box-shadow: none !important;
+    border: none !important;
+}
+
+.navbar-dropdown .dropdown-menu[data-bs-popper] {
+    background-color: #f8f8fe;
+    top: 80%;
+}
+
+.navbar-collapse {
+    margin-top: 20px;
+    z-index: 1000;
+    background-color: #f8f8fe;
+    position: absolute;
+    width: 100%;
+    max-height: calc(100vh - 96px);
+    overflow-y: auto;
+    top: 96px;
+    left: 0;
+}
+
+.navbar-dropdown button {
+    color: #0000008c;
+}
+
+.navbar-dropdown button::after {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    right: 357px;
+    top: 55%;
+    transform: translateY(-50%);
+}
+.custom-search-input {
+    margin: 0;
+    padding: 0;
+    background-color: #f8f8fe;
+    border: none;
+    outline: none;
+    box-shadow: none;
+}
+.dropdown-menu {
+    right: 0;
+    left: auto;
+    --bs-dropdown-padding-y: 0;
+}
+
+.mobile-icon {
+    color: #000;
+    margin-left: 5px;
+}
+
+/* Custom styles to remove little down arrow and blue color */
+.mobile-icon::after {
+    display: none;
+    /* Hide the down arrow */
+}
+
+.mobile-icon:hover {
+    color: #000;
+    /* Set your desired color for the user icon on hover */
+    text-decoration: none;
+    /* Remove underline effect on hover */
+}
+
+/* Add this to your existing CSS styles */
+.modal-content {
+    border: 1px solid #ccc;
+    /* Add a border to the modal content */
+}
+
+.modal-header {
+    border-bottom: 1px solid #ccc;
+    /* Add a border to the modal header */
+}
+
+.bi::before {
+    font-weight: bolder !important;
+}
+.carousel-image {
+    height: 370px;
+    object-fit: cover;
+}
+.text-banner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+.login {
+    width: 300px;
+    text-align: center;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.display-5.text-center {
+    text-align: center;
+}
+.container {
+    display: flex;
+    flex-direction: column;
+    padding-top: 20px;
+    align-items: center;
+    justify-content: center;
+    min-height: 35vh;
+}
+.options-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+.option {
+    display: block;
+    background-color: #5728b7;
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    text-align: center;
+    cursor: pointer;
+    width: 250px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+.option:hover {
+    color: aliceblue;
+}
+
+.dropdown-container {
+    margin-top: 20px;
+    
+}
+
+h2 {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.dropdown-menu .wider {
+    width: 400px;
+    max-width: 110%;
+    /* Adjust the value as needed */
+
+}
+
+.boton {
+    background-color: #5728b7;
+    color: white;
+    border-radius: 5px;
+}
+
+.cambia {
+    color: aliceblue;
+}
+
+.back-link {
+    position: fixed;
+    top: 10px;
+    left: 20px;
+    /* Adjust the left position as needed */
+    color: #333;
+    text-decoration: none;
+}
+
+/* Style for the search box */
+#search-box {
+    position: relative;
+    top: 3px;
+    left: auto;
+    display: flex;
+    align-items: center;
+}
+#search-form {
+    display: flex;
+    align-items: center;
+}
+#searchQuery {
+    margin-right: 5px;
+    /* Adjust the margin as needed */
+}
+.search-icon {
+    color: #5728b7;
+    cursor: pointer;
+}
+/* Custom styles for the footer dropdowns */
+.footer-dropdown .container {
+    text-align: left;
+    margin-bottom: 20px;
+}
+.footer-dropdown .dropdown button {
+    width: 100%;
+    text-align: left;
+    padding-right: 30px;
+}
+.boton:focus {
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+/* Add this CSS to remove borders when the dropdown is clicked */
+.dropdown-toggle:focus {
+    box-shadow: none !important;
+    border: none !important;
+}
+.footer-text {
+        -webkit-text-size-adjust: 100%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        font-weight: 400;
+        line-height: 26px;
+        color: #484848;
+        box-sizing: border-box;
+        font-size: 13px;
+        letter-spacing: 0.4px;
+        padding: 7px 0 7px;
+        float: none;
+        text-align: center;
+        width: 100%;
+        margin: 0 0 10px;
+}
+.btn:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}
+.whatsapp {
+    color: forestgreen;
+}
+
+/* Media query for screen widths up to 768px (for mobile devices) */
+@media (max-width: 768px) {
+    body {
+        background-color: #f8f9fa;
+    }
+    .mobile-mt {
+        margin-top: 60px !important;
+        margin-bottom: 60px;
+    }
+    .text-pink {
+        color: #5728b7;
+    }
+    .text-footer{
+        color: #000 !important;
+    }
+    .image-size{
+        width: 80%;
+        height: 55%;
+    }
+
+    .fixed-section {
+        position: static;
+        margin-top: 30px;
+        width: 100%;
+        background-color:#f8f9fa;
+    }
+    
+    .dropdown-container {
+        margin-top: 10px;
+        /* Adjust the value as needed */
+    }
+
+    .card__mobile {
+        display: block !important;
+    }
+
+    .back-link {
+        top: 16px;
+        left: 16px;
+        right: 35px;
+    }
+    #search-box {
+        position: absolute;
+        top: -32px;
+        right: 15px;
+        display: flex;
+        align-items: center;
+    }
+    #search-form {
+        display: flex;
+        align-items: center;
+    }
+
+    #searchQuery {
+        margin-right: 5px;
+        /* Adjust the margin as needed */
+    }
+    #searchQuery2 {
+        flex-grow: 1;
+        margin-right: 5px; /* Optional: space between input and button */
+    }
+    .search-icon {
+        box-shadow: none !important;
+        outline: none !important;
+        color: #5728b7;
+        cursor: pointer;
+        border: none;
+        /* Remove the border */
+        background-color: transparent;
+        /* Remove the background color */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .custom-search-input {
+        border-right: 0;
+    }
+
+    .ingrp {
+        position: relative;
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: stretch;
+        /*width: 130%;*/
+        box-sizing: border-box;
+    }
+    .cust {
+        transform: translateY(20px);
+    }
+
+    .footer-dropdown .dropdown-menu {
+        width: 100vw;
+        }
+    .footer-dropdown button::after {
+        content: "";
+        display: inline-block;
+        position: absolute;
+        right: 15px !important;
+        top: 45% !important;
+        transform: translateY(-50%);
+    }
+    .form-control {
+        width: 100%;
+        margin-bottom: 10px;
+        /* Make the input elements wider */
+        /* Add some padding for better spacing */
+    }
+    .btn-primary {
+        width: 60%;
+        /* Make the button wider */
+    }
+    .image-container {
+        margin-top: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+    }
+    
+    .ml-auto.mobile-icon {
+        margin-left: auto !important;
+        order: 2;
+    }
+
+    .navbar .form-control {
+        width: calc(100% - 38px);
+        /* Reduce the width to make space for the search button */
+    }
+
+    .navbar .btn-primary {
+        margin-left: 5px;
+    }
+
+    /* Ensure the form is not blocked by the navbar */
+    .navbar .input-group {
+        position: relative;
+        z-index: 999;
+    }
+
+    .navbar .input-group.mb-3 input[type="text"] {
+        width: 100%;
+    }
+
+    /* Additional styles to ensure user icon and search elements are visible */
+    .navbar .navbar-brand.mx-auto {
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .navbar .form-control {
+        width: 100%;
+        margin-top: 5px;
+    }
+    .login {
+        width: 80%;
+        margin: 320px auto 20px;
+        /* Center the login form horizontally */
+        padding: 20px;
+        /* Add some padding for better spacing */
+    }
+
+    .recuperar-link {
+        color: #adb5bd;
+        /* Light grey color */
+        font-size: 14px;
+        text-decoration: none;
+        display: block;
+        text-align: right;
+        margin-top: 5px;
+    }
+
+    a{
+        text-decoration: none;
+    }
+    .disabled-link {
+        pointer-events: none;
+        cursor: default;
+        color: #adb5bd;
+        /* Light grey color */
+    }
+    .col-md-8 .col-sm-10{
+        padding: 0;
+    }
+    .card {
+        margin: 0;
+        border-radius: 0;
+    }
+    
+    .card-body {
+        padding: 20px;
+    }
+    .mb-3 {
+        margin-bottom: 20px;
+    }
+
+    .mt-4 {
+        margin-top: 10px;
+    }
+}
+                
