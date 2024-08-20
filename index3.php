@@ -89,7 +89,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['searchQuery'])) {
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav mt-1 ps-3">
           <li class="nav-item">
-            <a class="nav-link" href="#">Ofertas</a>
+            <a class="nav-link" href="ofertas.php">Ofertas</a>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
@@ -142,23 +142,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['searchQuery'])) {
         <ol class="carousel-indicators">
           <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"></li>
           <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"></li>
-          <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"></li>
-          <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3"></li>
+          <!--<li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"></li>
+          <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3"></li>-->
         </ol>
         <div class="carousel-inner">
           <div class="carousel-item active">
-            <img src="imagenes/bikiniCely3.png" class="d-block w-100 carousel-image" alt="Image 1">
+            <a href="ofertas.php">
+              <img src="imagenes/oferta4.png" class="d-block w-100 carousel-image img-fluid mx-auto" style="max-width: 80%;" alt="Image 1">
+            </a>
           </div>
           <div class="carousel-item">
-            <img src="imagenes/bikiniCely2.png" class="d-block w-100 carousel-image" alt="Image 2">
+            <img src="imagenes/20240819_local1.jpg" class="d-block w-100 carousel-image img-fluid mx-auto" style="max-width: 80%;" alt="Image 2">
+          </div>
+          <!--<div class="carousel-item">
+            <img src="imagenes/bikiniCely4.png" class="d-block w-100 carousel-image img-fluid mx-auto" style="max-width: 85%;" alt="Image 3">
           </div>
           <div class="carousel-item">
-            <img src="imagenes/bikiniCely4.png" class="d-block w-100 carousel-image" alt="Image 3">
+            <img src="imagenes/bikiniCeky1.png" class="d-block w-100 carousel-image img-fluid mx-auto" style="max-width: 85%;" alt="Image 4">
           </div>
-          <div class="carousel-item">
-            <img src="imagenes/bikiniCeky1.png" class="d-block w-100 carousel-image" alt="Image 4">
-          </div>
-        </div>
+        </div>-->
         <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-bs-slide="prev">
           <span class="carousel-control-prev-icon" aria-hidden="true"></span>
           <span class="visually-hidden">Previous</span>
