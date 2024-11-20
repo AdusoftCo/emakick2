@@ -10,13 +10,13 @@ $conexion = new conexion();
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['searchQuery2'])) {
     $numTables = 1;
     $searchQuery = $_GET['searchQuery2'];
-    
+        
     $searchResult = $conexion->search("%$searchQuery%", $opcion, $numTables);
 
     if ($searchResult) {
         $results = $searchResult['data'];
         $table = $searchResult['table'];
-        displaySearchResults($results, $table);
+        displaySearchResults($results, $opcion, $numTables);
     }
     exit();
 } 
@@ -116,9 +116,10 @@ $sql = "SELECT " . $opcion . ".id, " . $opcion . ".cod_art, " . $opcion . ".id_p
             <div id="search-results-conta">
                 <!-- Search results will be inserted here dynamically -->
                 <?php
+                $numTables = 1;
                 if ($opcion) {
                     foreach ($opData as $op) {
-                        displaySearchResult($op, $opcion);
+                        displaySearchResult($op, $opcion, $numTables);
                     }
                 }
                 ?>

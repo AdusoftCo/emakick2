@@ -11,19 +11,19 @@
       from usuarios where
       es_admin = 'S';*/
       /* USUARIOS["mail"] */
-        if( ($_POST['email']=="admin") && ($_POST['pass']=='cac') ){
-          $_SESSION['usuario']="Admin";
-          $_SESSION['logueado']='S';
-          #redirecciono porque ingreso ok 
-          header("location:index_admin.php");
-          die();
-         // exit;
+        if( ($_POST['role']=="admin") && ($_POST['password']=='cac') ){
+            $_SESSION['usuario']="Admin";
+            $_SESSION['logueado']='S';
+            # Return success response for AJAX
+            echo 'success';
+            exit();
+            // exit;
         }
         else{
-           echo '<script> alert("Usuario y/o Contraseña incorrecta");</script>';
-           header("location:index3.php");
+            # Return error response for AJAX
+            echo 'error';
           
-           die();
+            exit();
         }
     }?>
 
@@ -37,6 +37,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/estilos.css">
+    <style>
+        #error-message {
+            /* Adjust the height to fit your design   */
+            min-height: 55px;
+            color: red;
+        }
+    </style>
 </head>
 
 <body>
@@ -47,14 +54,14 @@
             <img src="imagenes/1.png" alt="Logo" width="100" height="100" class="img-fluid d-block mx-auto">
         </div>
 
-        <form action="login.php" method="post" class="mt-5">
+        <form id="login-form" method="post" class="mt-5">
             <div class="mb-3">
-                <input type="text" name="email" id="email" class="form-control" 
+                <input type="text" name="role" id="role" class="form-control" 
                 placeholder="Usuario" required>
             </div>
 
             <div class="mb-3">
-                <input type="password" name="pass" id="subject" class="form-control" 
+                <input type="password" name="password" id="password" class="form-control" 
                 placeholder="Password" required>
                 
                 <div class="recuperar-link">
@@ -66,8 +73,38 @@
                 <button type="submit" class="btn btn-block" style="width: 40%; background-color: #5728b7; color: white; border-radius: 5px;">Entrar</button>
             </div>
         </form>
-        
+
+        <p id="error-message" class="mb-0"></p>
+
     </div>
-    
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#login-form').on('submit', function(e) {
+                e.preventDefault();  // Prevent the form from refreshing the page
+                
+                // Gather form data
+                var role = $('#role').val();
+                var password = $('#password').val();
+                
+                // Send AJAX request to the server
+                $.ajax({
+                    url: 'login.php',  // Your PHP login processing file
+                    method: 'POST',
+                    data: { role: role, password: password },
+                    success: function(response) {
+                        if(response == 'success') {
+                            window.location.href = 'index_admin.php';  // Redirect on successful login
+                        } else {
+                            $('#error-message').text("Usuario y/o Contraseña Incorrecta !!");
+                            window.scrollTo(0, 0);  // Keep the page at the top
+                              // Prevent page jumps e.preventDefault();
+                        }
+                    }
+                });
+            });
+        });
+    </script>
 </body> 
 </html>

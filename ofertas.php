@@ -32,7 +32,12 @@ WHERE medias.id_prov LIKE '%13%' AND medias.descripcion LIKE '%Invisible Dama Es
 $offers = array_merge($table1_offers, $table2_offers, $table3_offers, $table4_offers);
 
 // Create an array to store the discounted prices
-$ofertaMes = [];
+
+$descu1 = 5;
+$descu2 = 10;
+$descu3 = 15;
+
+$oferProg = [$descu1, $descu2, $descu3, $descu2];
 
 // Calculate discounts and store them in $ofertaMes
 foreach ($offers as $oferta) {
@@ -40,13 +45,13 @@ foreach ($offers as $oferta) {
     
     // Different discounts for different items
     if ($oferta['descripcion'] == 'Bombacha Super Especial Alg.L Lisa Elast.Coronita') {
-        $descuento = $precio_oferta * 0.10;
+        $descuento = $precio_oferta * ($descu1 / 100);
     } elseif ($oferta['descripcion'] == 'Bombacha Universal Dama Alg.Lycra Lisa') {
-        $descuento = $precio_oferta * 0.50;
+        $descuento = $precio_oferta * ($descu2 / 100);
     } elseif ($oferta['descripcion'] == 'BOXER HOMBRE SIN COSTURA RAYADO- XXL') {
-        $descuento = $precio_oferta * 0.15;
+        $descuento = $precio_oferta * ($descu3 / 100);
     } else {
-        $descuento = $precio_oferta * 0.10; // Default discount
+        $descuento = $precio_oferta * ($descu2 / 100); // Default discount
     }
     
     $precio_con_descuento = $precio_oferta - $descuento;
@@ -61,7 +66,7 @@ foreach ($offers as $oferta) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Galeria</title>
+    <title>Galeria de Ofertas</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/estilos.css">
@@ -99,7 +104,7 @@ foreach ($offers as $oferta) {
                         <p class="card-text">Fabricante: <?php echo $fila['fabricant_name']; ?></p>
                         <h5 class="card-title"><?php echo $fila['descripcion']; ?></h5>
                         <p class="card-text">Precio Original: <?php echo $fila['precio_oferta']; ?> $</p>
-                        <p class="card-text">Precio con Descuento: <?php echo $ofertaMes[$index]; ?> $</p>
+                        <p class="card-text fondOfertas">Descuento del<?php echo  " " .  $oferProg[$index] . "%"?> : <?php echo $ofertaMes[$index]; ?> $</p>
                         <!--<a href="detalle.php?id=<?php echo $fila['id']; ?>" class="btn btn-primary">Ver detalles</a>-->
                     </div>
                 </div>

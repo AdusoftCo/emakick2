@@ -32,11 +32,12 @@ class conexion{
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute();
         #retorna todos los registros de la consulta sql
-        return $stmt->fetchAll();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
         /*1ro agarra nuestra sentencia de sql y lo mete adentro de un objeto 
          2do agarra el objeto y ejecuta la sentencia de sql que devuelve o no filas de base de datos 
          3ro fetchall() nos devuelve un array con las filas del select  */
     }
+
     public function search($searchQuery, $tables, $numTables)
     {
         $results = [];
@@ -50,34 +51,38 @@ class conexion{
                 . "FROM $table "
                 . "INNER JOIN fabricants ON $table.id_prov = fabricants.id "
                 . "WHERE $table.descripcion LIKE :searchQuery OR fabricants.nombre LIKE :searchQuery";
-        } else {
-            if (is_array($tables) && count($tables) > 0) {
-                $source_table = $tables[0]; // Assuming you want to use the first table in the array
-            }
-            echo ('datos  ' . $source_table);
-            $sql = "SELECT $source_table.id, $source_table.cod_art, $source_table.id_prov, $source_table.descripcion, fabricants.nombre AS fabricant_name, "
-                . "$source_table.precio_doc, $source_table.precio_oferta, $source_table.fecha_alta, $source_table.imagen "
-                . "FROM (";
-            // Initialize an array to hold the table names
-            $tableNames = [];
-            foreach ($tables as $table) {
-                // Append each table name to the $tableNames array
-                var_dump($table);
-                $tableNames[] = $table;
-                var_dump($tableNames);
-                $sql .= "SELECT '$table' AS source_table, id, cod_art, id_prov, descripcion, precio_doc, 
-                precio_oferta, fecha_alta, imagen FROM $table";
-                echo ('records :' . $sql);
-                
-                if ($table !== end($tables)) {
-                    $sql .= " UNION ";
+            
+            $source_table = $table; // Single table source
+            } else {
+                if (is_array($tables) && count($tables) > 0) {
+                    $source_table = $tables[0]; // Use the first table in the array as a reference
                 }
-            }
-        // Complete the query
-            $sql .= ") AS combined_tables "
-                . "INNER JOIN fabricants ON combined_tables.id_prov = fabricants.id "
-                . "WHERE combined_tables.descripcion LIKE :searchQuery OR fabricants.nombre LIKE :searchQuery";
+                //echo ('datos : ' . $source_table);
+            
+                // Start building the UNION query
+                $sql = "SELECT combined_tables.id, combined_tables.cod_art, combined_tables.id_prov, combined_tables.descripcion, 
+                        fabricants.nombre AS fabricant_name, combined_tables.precio_doc, combined_tables.precio_oferta, 
+                        combined_tables.fecha_alta, combined_tables.imagen 
+                        FROM (";
+                
+                // Initialize the query for each table
+                foreach ($tables as $index => $table) {
+                    $sql .= "SELECT '$table' AS source_table, id, cod_art, id_prov, descripcion, precio_doc, 
+                            precio_oferta, fecha_alta, imagen FROM $table";
+                    
+                    // Add UNION between tables, but not after the last table
+                    if ($table !== end($tables)) {
+                        $sql .= " UNION ";
+                    }
+                }
+                
+                // Complete the query
+                $sql .= ") AS combined_tables 
+                        INNER JOIN fabricants ON combined_tables.id_prov = fabricants.id 
+                        WHERE combined_tables.descripcion LIKE :searchQuery OR fabricants.nombre LIKE :searchQuery";
         }
+            
+        //echo 'Final Query: ' . $sql;
         // Assuming $this->pdo is your PDO connection
         $stmt = $this->pdo->prepare($sql);
         $stmt->bindParam(':searchQuery', $searchQuery, PDO::PARAM_STR);
@@ -90,7 +95,7 @@ class conexion{
             return false;
         }
 
-        return ['data' => $results['data'], 'table' => $source_table];
+        return ['data' => $results['data'], 'table' => $source_table, 'numTables' => $numTables];
     }
 
 }

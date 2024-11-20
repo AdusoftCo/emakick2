@@ -12,13 +12,13 @@
                         <li>
                             <p class="ms-3">
                                 <i class="fas fa-map-marker-alt"></i>
-                                Castelli 234 Local 1, Once C.A.B.A.
+                                Castelli 234 Gondola 1 - Once (1031) C.A.B.A.
                             </p>
                         </li>
                         <li>
                             <p class="ms-3">
                                 <i class="fas fa-phone"></i>
-                                11 5653 2820
+                                11 5653-2820
                             </p>
                         </li>
                         <li>
@@ -48,10 +48,12 @@
             </div>
 
             <div class="col-12 mt-2 mb-3 text-center">
-                <a class="faceook me-4" href="https://facebook.com" target="_blank"><i
-                        class="fab fa-facebook fa-2x"></i></a>
-                <a class="whatsapp" href="https://wa.me/5491150511072" target="_blank"><i
-                        class="fab fa-whatsapp fa-2x"></i></a>
+                <a class="faceook me-4" href="https://facebook.com" target="_blank">
+                    <i class="fab fa-facebook fa-2x"></i>
+                </a>
+                <a class="whatsapp" href="https://wa.me/5491150511072" target="_blank">
+                    <i class="fab fa-whatsapp fa-2x"></i>
+                </a>
             </div>
 
             <div class="footer-text">

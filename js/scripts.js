@@ -3,8 +3,8 @@
 document.addEventListener('DOMContentLoaded', function () {
     const searchForm = document.getElementById('search-form');
     const searchResultsContainer = document.getElementById('search-results-container');
-    console.log('searchForm:', searchForm);
-    console.log('searchResultsContainer:', searchResultsContainer);
+    //console.log('searchForm:', searchForm);
+    //console.log('searchResultsContainer:', searchResultsContainer);
 
     if (searchForm && searchResultsContainer) {
         searchForm.addEventListener('submit', async (event) => {
@@ -17,8 +17,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 const html = await response.text();
                 // Update only the search results container
                 searchResultsContainer.innerHTML = html;
-                console.log('responses:', response);
-                console.log('html:', html);
+                //console.log('responses:', response);
+                //console.log('html:', html);
 
             } catch (error) {
                 console.error('Error:', error);
@@ -36,4 +36,17 @@ function processForm(e) {
     } else {
         alert('ALTA Exitosa !!!');
     }
+}
+
+function wantdelete(e) {
+    var respuest2 = confirm("Desea realmente BORRAR el Registro ...?");
+    if (respuest2 == false) {
+        e.preventDefault();
+    } else {
+        alert('BORRADO Con fir ma do !!!');
+    }
+}
+
+function logout() {
+    window.location.href = 'loginAdmin.php';
 }

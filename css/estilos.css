@@ -217,6 +217,11 @@ h2 {
     color: #5728b7;
     cursor: pointer;
 }
+
+.fondOfertas {
+    background-color: #5728b7;
+    color: white;
+}
 /* Custom styles for the footer dropdowns */
 .footer-dropdown .container {
     text-align: left;
@@ -272,6 +277,9 @@ h2 {
     .text-pink {
         color: #5728b7;
     }
+    .errorMessage {
+        color: #e31212;
+    }
     .text-footer{
         color: #000 !important;
     }
@@ -296,11 +304,11 @@ h2 {
         display: block !important;
     }
 
-    .back-link {
+    /*.back-link {
         top: 16px;
         left: 16px;
         right: 35px;
-    }
+    }*/
     #search-box {
         position: absolute;
         top: -32px;
@@ -353,7 +361,7 @@ h2 {
 
     .footer-dropdown .dropdown-menu {
         width: 100vw;
-        }
+    }
     .footer-dropdown button::after {
         content: "";
         display: inline-block;
@@ -418,7 +426,7 @@ h2 {
         width: 80%;
         margin: 320px auto 20px;
         /* Center the login form horizontally */
-        padding: 20px;
+        padding: 10px;
         /* Add some padding for better spacing */
     }
 

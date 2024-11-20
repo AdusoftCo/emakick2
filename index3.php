@@ -14,32 +14,39 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['searchQuery'])) {
     $searchQuery = $_GET['searchQuery'];
     
     // Specify the tables you want to search
-    $tables = ["camisonetas", "damas", "masculinos", "medias"];
+    $tables = ["camisonetas", "femeninterior", "masculinos", "medias"];
 
     $searchResult = $conexion->search("%$searchQuery%", $tables, $numTables);
-    var_dump($searchQuery);
-    if ($searchResult) {
+    
+    if ($searchResult && !empty($searchResult['data'])) {
+      // If results are found, display them
       $results = $searchResult['data'];
       $table = $searchResult['table'];
-      displaySearchResults($results, $table);
+      displaySearchResults($results, $table, $numTables);
+    } else {
+      // If no results are found, display a message
+      echo "No hay registros con esa Palabra!.";
     }
+    exit(); // Exit to prevent the rest of the page from being rendered
 }
 ?>
-
+     
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-  <title>Emakick's</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="css/estilos.css">
-  </head>
+  <title>Emakick's Lingerie</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="icon" type="image/x-icon" href="imagenes/favicon-32x32.png">
+  <link rel="stylesheet" type="text/css" href="css/estilos.css">
+</head>
 
 <body>
+
   <div class="container-fluid p-0">
     <nav class="navbar navbar-dropdown navbar-expand-lg navbar-light">
       <!--Button Hamburger-->
@@ -49,13 +56,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['searchQuery'])) {
       </button>
       <!--Logo Imagen-->
       <div class="text-center mt-3 mb-3">
-        <img src="imagenes/emakick's.png" alt="Logo" width="90" height="90" class="img-fluid d-block mx-auto ronded">
+        <a href="javascript:void(0);" onclick="window.location.reload();">
+          <img src="imagenes/emakick's.png" alt="Logo" width="90" height="90" class="img-fluid d-block mx-auto ronded">
+        </a>  
       </div>  
 
       <div class="ml-auto d-flex align-items-center order-lg-2">
         <!--Formulario Searching -->
-        
-        <form class="d-flex align-items-center" id="search-form" method="get" action="index3.php">
+        <form class="d-flex align-items-center" id="search-form" method="get">
           <div class="input-group">
               <a class="nav-link pt-5 pe-2" href="#" role="submit" data-bs-toggle="dropdown" data-bs-target="#userDropdown">
                   <i class="fas fa-search"></i>
@@ -64,11 +72,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['searchQuery'])) {
                   <li>
                       <div class="input-group ingrp">
                           <input class="form-control mb-0 custom-search-input" type="text" id="searchQuery" name="searchQuery" placeholder="Buscar ...">
-                          
-                              <button type="submit" class="search-icon">
-                                  <i class="fas fa-search"></i>
-                              </button>
-                          
+                          <button type="submit" class="search-icon">
+                              <i class="fas fa-search"></i>
+                          </button>
                       </div>
                   </li>
               </ul>
@@ -134,7 +140,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['searchQuery'])) {
         </ul>
       </div>
     </nav>
+  </div>
   
+  <div class="row d-flex justify-content-center">
+    <div class="col-md-10 col-sm-6 mt-3 text-center">
+      <div id="search-results-container">
+        <!-- Insertion will begin here dynamically -->
+        
+      </div>
+    </div>
+  </div>
+
   <!--Rest of the Body (Carrousel!) -->
   <div class="row justify-content-center carousel-row mt-4">
     <div class="col-12 p-0">
@@ -142,8 +158,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['searchQuery'])) {
         <ol class="carousel-indicators">
           <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"></li>
           <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"></li>
-          <!--<li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"></li>
-          <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3"></li>-->
+          <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"></li>
+          <!--<li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3"></li>-->
         </ol>
         <div class="carousel-inner">
           <div class="carousel-item active">
@@ -152,15 +168,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['searchQuery'])) {
             </a>
           </div>
           <div class="carousel-item">
-            <img src="imagenes/20240819_local1.jpg" class="d-block w-100 carousel-image img-fluid mx-auto" style="max-width: 80%;" alt="Image 2">
-          </div>
-          <!--<div class="carousel-item">
-            <img src="imagenes/bikiniCely4.png" class="d-block w-100 carousel-image img-fluid mx-auto" style="max-width: 85%;" alt="Image 3">
+            <img src="imagenes/localEmaK09.png" class="d-block w-100 carousel-image img-fluid mx-auto" style="max-width: 80%;" alt="Image 2">
           </div>
           <div class="carousel-item">
-            <img src="imagenes/bikiniCeky1.png" class="d-block w-100 carousel-image img-fluid mx-auto" style="max-width: 85%;" alt="Image 4">
+            <a href="galeriaSol.php">
+              <img src="imagenes/galeriaSol09.png" class="d-block w-100 carousel-image img-fluid mx-auto" style="max-width: 80%;" alt="Image 3">
+            </a>
           </div>
-        </div>-->
+          <!--<div class="carousel-item">
+            <img src="imagenes/bikiniCeky1.png" class="d-block w-100 carousel-image img-fluid mx-auto" style="max-width: 85%;" alt="Image 4">
+          </div>-->
+        </div>
         <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-bs-slide="prev">
           <span class="carousel-control-prev-icon" aria-hidden="true"></span>
           <span class="visually-hidden">Previous</span>
@@ -187,14 +205,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['searchQuery'])) {
 
     generateSection("CHICOS", "imagenes/mediasChicos24.png", "", "Niños Image");
     ?>
-  <div class="row d-flex justify-content-center mb-5">
-    <div class="col-md-10 col-sm-6 mt-3">
-      <div id="search-results-container">
-        <!-- Insertion will begin here dynamically -->
-        
-      </div>
-    </div>
-  </div>
+  
     <!-- Modal to display the table content -->
     <div class="modal fade" id="tableModal" tabindex="-1" aria-hidden="true">
       <div class="modal-dialog modal-lg modal-dialog-scrollable">
@@ -223,6 +234,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['searchQuery'])) {
   </script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="js/scripts.js"></script>
+  
+  <script>
+    document.getElementById('search-form').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent normal form submission
+
+    let searchQuery = document.getElementById('searchQuery').value;
+
+    // Perform the AJAX request
+    fetch('index3.php?searchQuery=' + encodeURIComponent(searchQuery))
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.text();
+        })
+        .then(html => {
+            // Insert the response HTML into the results container, replacing all content
+            document.getElementById('search-results-container').innerHTML = html;
+            
+            // Optionally scroll to the top of the page to focus on the search results
+            window.scrollTo(0, 0);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            document.getElementById('search-results-container').innerHTML = '<p>Error loading results. Please try again.</p>';
+        });
+    });
+  </script>
   
   <script>
     //Modal Table

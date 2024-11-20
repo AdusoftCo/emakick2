@@ -1,11 +1,11 @@
 <?php
 function calculos ($id_prov, $costo) {
-    if ($id_prov != 13 && $id_prov != 16 && $id_prov != 24 && $id_prov != 17 ) 
+    if ($id_prov != 13 && $id_prov != 16 && $id_prov != 17 ) 
         {
             $a = (30 * $costo) / 100;
             $docena = $costo + $a;
             $f = $costo / 12;
-            $g = (55 * $f) / 100;
+            $g = (53 * $f) / 100;
             $oferta = $f + $g;
             return array($docena, $oferta);
         } elseif ($id_prov == 13)
@@ -20,7 +20,7 @@ function calculos ($id_prov, $costo) {
                 $g = (55 * $f)/ 100;
                 $oferta = $f + $g;
                 return array($docena, $oferta);
-            } elseif ($id_prov == 16 || $id_prov == 24)
+            } elseif ($id_prov == 16)
                 {
                     $a = (20 * $costo) / 100;
                     $b = $costo - $a;
@@ -50,7 +50,7 @@ function calculos ($id_prov, $costo) {
                     
 };
 
-function displaySearchResults($results, $opcion)
+function displaySearchResults($results, $opcion, $numTables)
 {
     if (empty($results)) {
         echo "No hay registros con esa Palabra!.";
@@ -58,11 +58,11 @@ function displaySearchResults($results, $opcion)
     }
 
     foreach ($results as $result) {
-        displaySearchResult($result, $opcion);
+        displaySearchResult($result, $opcion, $numTables);
     }
 }
 
-function displaySearchResult($result, $opcion)
+function displaySearchResult($result, $opcion, $numTables)
 {
     $color = '#008f39';
     $dateNow = $result['fecha_alta'];
@@ -103,16 +103,22 @@ function displaySearchResult($result, $opcion)
     echo                    '</tr>';
     echo                '</tbody>';
     echo            '</table>';
-    echo            '<div class="d-flex justify-content-center mb-2">';
-    echo                '<a name="modificar" id="modificar" class="btn btn-warning mr-2" href="modificar.php?option=' . $_GET['option'] . '&modificar=' . $result['id'] . '">Modificar</a>';
-    echo                '<a onclick="wantdelete(event)" name="eliminar" id="eliminar" class="btn btn-danger" href="galeria.php?option=' . $_GET['option'] . '&borrar=' . $result['id'] . '">Eliminar</a>';
-    echo            '</div>';
+
+                    // Only display edit/delete buttons if $opcion <= 1 (single table)
+                    if ($numTables === 1 && !is_numeric($opcion)) {
+                        echo '<div class="d-flex justify-content-center mb-2">';
+                        echo    '<a name="modificar" id="modificar" class="btn btn-warning mr-2" href="modificar.php?option=' . $_GET['option'] . '&modificar=' . $result['id'] . '">Modificar</a>';
+                        echo    '<a onclick="wantdelete(event)" name="eliminar" id="eliminar" class="btn btn-danger" href="galeria.php?option=' . $_GET['option'] . '&borrar=' . $result['id'] . '">Eliminar</a>';
+                        echo '</div>';
+                    }
     echo        '</div>';
     echo    '</div>';
     echo '</div>';
 }
 
-/*function getStockCantidad($product_id, $categoria)
+/*
+
+function getStockCantidad($product_id, $categoria)
 {
     $conexion = new conexion();
     $sql = "SELECT cant_doce FROM stocking WHERE product_id = $product_id AND categoria = '$categoria'";
